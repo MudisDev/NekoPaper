@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { FlatList, } from 'react-native-gesture-handler';
 
 import { NekosAPI } from 'nekosapi';
 import { useNavigation } from '@react-navigation/native';
@@ -26,42 +27,97 @@ export const Home = () => {
 
     useEffect(() => {
         //fetch("https://nekos.best/api/v2/neko")
-        fetch("https://api.nekosapi.com/v4/images/random")
+        //fetch("https://api.nekosapi.com/v4/images/random")
+        /* .then((res) => res.json())
+        .then((data) => {
+            //const url = data.results?.[0]?.url;
+            //const url = data.results?.[0]?.url;
+            const url = data?.[0]?.url;
+            //const url = data.results?.url;
+            if (url) {
+                setImageUrl(url);
+                //console.log(`url -> ${url}`);
+
+            }
+            // Guarda todos los datos recibidos en el estado
+            setDataArray(data);
+
+
+            console.log(JSON.stringify(data));
+        })
+        .catch((err) => console.error("Error al traer imagen:", err));
+}, []); */
+        //fetch("https://api.nekosapi.com/v4/images?rating=explicit")
+        fetch("https://api.nekosapi.com/v4/images")
             .then((res) => res.json())
             .then((data) => {
-                //const url = data.results?.[0]?.url;
-                //const url = data.results?.[0]?.url;
-                const url = data?.[0]?.url;
-                //const url = data.results?.url;
-                if (url) {
-                    setImageUrl(url);
-                    //console.log(`url -> ${url}`);
+                const items = data?.items;
 
+                if (Array.isArray(items) && items.length > 0) {
+                    /* const firstImage = items[0]?.url;
+                    if (firstImage) {
+                        setImageUrl(firstImage);
+                    } */
+
+                    // Guarda todo el array correctamente
+                    setDataArray(items);
+                    console.log("Datos recibidos:", JSON.stringify(items, null, 2));
+                } else {
+                    console.warn("No se encontraron imágenes en la respuesta.");
                 }
-                // Guarda todos los datos recibidos en el estado
-                setDataArray(data);
-
-
-                console.log(JSON.stringify(data));
             })
             .catch((err) => console.error("Error al traer imagen:", err));
     }, []);
 
+    const renderItem = ({ item }: { item: NekoImageData }) => (
+        <TouchableOpacity
+            //style={stylesAppTheme.animeCell}
+            onPress={() => navigation.navigate("Wallpaper", { url: item?.url })}
+        >
+            <Image
+                source={{ uri: item.url }}
+                style={{ width: 200, height: 200 }}
+            //style={stylesAppTheme.animeCellImage}
+            />
+            {/* <Text style={[dynamicStyles.dynamicText, stylesAppTheme.animeCellText]} numberOfLines={2} ellipsizeMode="tail">
+                {item.nombre}
+            </Text> */}
+        </TouchableOpacity>
+    );
+
     return (
         <View style={styles.container}>
-            <ScrollView>
-                <StatusBar style="auto" />
-                <Text>Home kakaka</Text>
-                {/* {imageUrl && (
-                    <Image source={{ uri: imageUrl }} style={{ width: 200, height: 200 }} />
-                )} */}
-                {dataArray?.map(item => (
-                    /* <Text>{item?.url}</Text> */
-                    <TouchableOpacity onPress={() => navigation.navigate("Wallpaper", {url: item?.url})}>
-                        <Image source={{ uri: item?.url }} style={{ width: 200, height: 200 }} />
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
+            <FlatList
+                data={dataArray}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={renderItem}
+                numColumns={3}
+                //contentContainerStyle={[dynamicStyles.dynamicMainContainer, stylesAppTheme.mainContainer,]}
+                //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]} // Estilo para englobar las columnas
+                /* ListHeaderComponent={() => (
+                    <View>
+                        {<TitleComponent title="Anime Directory" />}
+                        <View style={[[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]]}>
+                            {showFilters ? <TouchableOpacity onPress={() => setShowFilters(!showFilters)}
+                                style={{ backgroundColor: "green", width: 200, alignItems: 'center', borderRadius: 10, paddingVertical: 10, marginTop: 10, marginLeft: 10, }}
+                            >
+                                <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Filtros</Text>
+                            </TouchableOpacity> : <TouchableOpacity onPress={() => setShowFilters(!showFilters)}
+                                style={{ backgroundColor: "red", width: 200, alignItems: 'center', borderRadius: 10, paddingVertical: 10, marginTop: 10, marginLeft: 10, }}
+                            >
+                                <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Filtros</Text>
+                            </TouchableOpacity>}
+
+                            {showFilters ? <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Mostrando filtros Bv</Text> : null}
+                        </View>
+                    </View>
+
+                )} */
+                //ListFooterComponent={() => loading && <ActivityIndicator size="large" color="#0000ff" />
+
+                //onEndReached={fetchAnimes} // Llama a fetchAnimes cuando el usuario alcanza el final de la lista
+                onEndReachedThreshold={0.5} // Cargar más datos cuando queda el 50% de la lista visible
+            />
         </View>
     )
 }

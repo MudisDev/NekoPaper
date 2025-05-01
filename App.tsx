@@ -6,13 +6,16 @@ import { LogIn } from './src/screens/LogIn';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigator } from './src/navigators/StackNavigator';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
 
