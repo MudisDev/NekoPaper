@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 
 import { NekosAPI } from 'nekosapi';
+import { useNavigation } from '@react-navigation/native';
 
 interface NekoImageData {
     id: number;
@@ -20,6 +21,8 @@ export const Home = () => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         //fetch("https://nekos.best/api/v2/neko")
@@ -54,7 +57,9 @@ export const Home = () => {
                 )} */}
                 {dataArray?.map(item => (
                     /* <Text>{item?.url}</Text> */
-                    <Image source={{ uri: item?.url }} style={{ width: 200, height: 200 }} />
+                    <TouchableOpacity onPress={() => navigation.navigate("Wallpaper", {url: item?.url})}>
+                        <Image source={{ uri: item?.url }} style={{ width: 200, height: 200 }} />
+                    </TouchableOpacity>
                 ))}
             </ScrollView>
         </View>

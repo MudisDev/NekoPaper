@@ -4,6 +4,7 @@ import { LogIn } from '../screens/LogIn';
 import { Register } from '../screens/Register';
 import { BottomTabNavigator } from './BottonTabNavigator';
 import { HeaderTitle } from '@react-navigation/elements';
+import { Wallpaper } from '../screens/Wallpaper';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,8 @@ export function StackNavigator() {
       <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Wallpaper" component={Wallpaper} />
+
     </Stack.Navigator>
   );
 }
