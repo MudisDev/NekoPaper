@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home } from '../screens/Home';
 import { LogIn } from '../screens/LogIn';
+import { Register } from '../screens/Register';
+import { BottomTabNavigator } from './BottonTabNavigator';
+import { HeaderTitle } from '@react-navigation/elements';
 
 const Stack = createNativeStackNavigator();
 
@@ -10,8 +11,9 @@ export function StackNavigator() {
   return (
     <Stack.Navigator
     initialRouteName='LogIn'>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       <Stack.Screen name="LogIn" component={LogIn} />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
   );
 }

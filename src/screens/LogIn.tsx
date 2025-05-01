@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { Home } from './Home'
 
 export const LogIn = () => {
 
@@ -16,7 +15,9 @@ return (
         <Text style={{ justifyContent: 'center' }}>LogIn Screen</Text>
 
 
-        <TouchableOpacity onPress={() => navigation.navigate('Home') }><Text>Este es un link Bv</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('BottomTabNavigator') }><Text>Home</Text></TouchableOpacity>
+        <Text></Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Register') }><Text>Registro</Text></TouchableOpacity>
     </View>
 )
 }
