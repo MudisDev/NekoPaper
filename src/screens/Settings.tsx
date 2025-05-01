@@ -3,6 +3,6 @@ import { View, Text } from 'react-native'
 
 export const Settings = () => {
   return (
-    <View><Text>Setting Screen Bv</Text></View>
+    <View><Text>Settings Screen Bv</Text></View>
   )
 }
