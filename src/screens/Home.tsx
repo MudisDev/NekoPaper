@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 
 import { NekosAPI } from 'nekosapi';
 
@@ -46,16 +46,17 @@ export const Home = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar style="auto" />
-            <Text>Home kakaka</Text>
-            {imageUrl && (
-                <Image source={{ uri: imageUrl }} style={{ width: 200, height: 200 }} />
-            )}
-            {dataArray?.map(item => (
-                /* <Text>{item?.url}</Text> */
-                <Image source={{uri: item?.url}} style={{width: 200, height: 200}}/>
-            ))}
-
+            <ScrollView>
+                <StatusBar style="auto" />
+                <Text>Home kakaka</Text>
+                {/* {imageUrl && (
+                    <Image source={{ uri: imageUrl }} style={{ width: 200, height: 200 }} />
+                )} */}
+                {dataArray?.map(item => (
+                    /* <Text>{item?.url}</Text> */
+                    <Image source={{ uri: item?.url }} style={{ width: 200, height: 200 }} />
+                ))}
+            </ScrollView>
         </View>
     )
 }
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        /* alignItems: 'center',
+        justifyContent: 'center', */
     },
 });
