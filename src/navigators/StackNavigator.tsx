@@ -15,7 +15,7 @@ export function StackNavigator() {
       <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="Wallpaper" component={Wallpaper} />
+      <Stack.Screen name="Wallpaper" component={Wallpaper} options={{headerShown: false}} />
 
     </Stack.Navigator>
   );

@@ -48,7 +48,7 @@ export const Home = () => {
         .catch((err) => console.error("Error al traer imagen:", err));
 }, []); */
         //fetch("https://api.nekosapi.com/v4/images?rating=explicit")
-        fetch("https://api.nekosapi.com/v4/images")
+        fetch("https://api.nekosapi.com/v4/images?tags=exposed_anus")
             .then((res) => res.json())
             .then((data) => {
                 const items = data?.items;
@@ -72,11 +72,11 @@ export const Home = () => {
     const renderItem = ({ item }: { item: NekoImageData }) => (
         <TouchableOpacity
             //style={stylesAppTheme.animeCell}
-            onPress={() => navigation.navigate("Wallpaper", { url: item?.url })}
+            onPress={() => navigation.navigate("Wallpaper", { url: item?.url, tags: item?.tags, artist_name: item?.artist_name })}
         >
             <Image
                 source={{ uri: item.url }}
-                style={{ width: 200, height: 200 }}
+                style={{ width: 170, height: 170 }}
             //style={stylesAppTheme.animeCellImage}
             />
             {/* <Text style={[dynamicStyles.dynamicText, stylesAppTheme.animeCellText]} numberOfLines={2} ellipsizeMode="tail">
@@ -91,7 +91,8 @@ export const Home = () => {
                 data={dataArray}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
-                numColumns={3}
+                numColumns={2}
+               
                 //contentContainerStyle={[dynamicStyles.dynamicMainContainer, stylesAppTheme.mainContainer,]}
                 //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]} // Estilo para englobar las columnas
                 /* ListHeaderComponent={() => (
