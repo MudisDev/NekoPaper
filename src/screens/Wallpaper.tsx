@@ -11,8 +11,8 @@ export const Wallpaper = ({ route }) => {
     const { url, tags, artist_name } = route.params;
 
     useEffect(() => {
-        console.log("URL:", url);
-        console.log("Artista recibido:", artist_name);
+ console.log("URL:", url);
+    console.log("Artista recibido:", artist_name); 
 
         setImage(url);
         setArtist(artist_name);

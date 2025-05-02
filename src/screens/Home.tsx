@@ -48,7 +48,7 @@ export const Home = () => {
         .catch((err) => console.error("Error al traer imagen:", err));
 }, []); */
         //fetch("https://api.nekosapi.com/v4/images?rating=explicit")
-        fetch("https://api.nekosapi.com/v4/images?tags=exposed_anus")
+        fetch("https://api.nekosapi.com/v4/images")
             .then((res) => res.json())
             .then((data) => {
                 const items = data?.items;
