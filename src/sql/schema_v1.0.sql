@@ -61,3 +61,5 @@ DROP TABLE imagen;
 DROP Table favorito;
 
 DROP Table tiene_etiqueta;
+
+SELECT * FROM usuario;
