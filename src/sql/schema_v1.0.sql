@@ -1,7 +1,9 @@
 CREATE DATABASE NekoPaper;
 
 USE NekoPaper;
+
 SHOW TABLES;
+
 SHOW DATABASES;
 
 CREATE TABLE Usuario (
@@ -42,10 +44,20 @@ CREATE TABLE Favorito (
     FOREIGN KEY (id_imagen) REFERENCES Imagen (id_imagen) ON DELETE CASCADE
 );
 
+CREATE TABLE Tiene_Etiqueta (
+    id_imagen INT NOT NULL,
+    id_etiqueta INT NOT NULL,
+    PRIMARY KEY (id_imagen, id_etiqueta),
+    FOREIGN KEY (id_imagen) REFERENCES Imagen (id_imagen) ON DELETE CASCADE,
+    FOREIGN KEY (id_etiqueta) REFERENCES Etiqueta (id_etiqueta) ON DELETE CASCADE
+);
+
 DROP TABLE usuario;
+
 DROP TABLE etiqueta;
+
 DROP TABLE imagen;
+
 DROP Table favorito;
 
-
-use nekopaper;
+DROP Table tiene_etiqueta;
