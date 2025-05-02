@@ -51,6 +51,26 @@ class Usuario
         );
         return $resultado;
     }
+
+    public function Iniciar_Sesion()
+    {
+        $conexion = new Conexion();
+        $resultado = $conexion->IniciarSesion("Usuario", ["*"], "username", $this->username, $this->password);
+        if (!isset($resultado['Error'])) {
+                $this->Set_Datos($resultado[0]);
+        }
+        return $resultado;
+    }
+
+    public function Set_Datos(array $datos)
+    {
+        foreach($datos as $key => $value){
+            if(property_exists($this, $key)){
+                $this->$key = $value;
+            }
+        }
+    }
+
 }
 
 
