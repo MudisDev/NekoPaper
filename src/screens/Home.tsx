@@ -8,7 +8,7 @@ import { NekosAPI } from 'nekosapi';
 import { useNavigation } from '@react-navigation/native';
 import { stylesAppTheme } from '../theme/AppTheme';
 
-interface NekoImageData {
+export interface NekoImageData {
     id: number;
     url: string;
     rating: string;
@@ -50,7 +50,7 @@ export const Home = () => {
         .catch((err) => console.error("Error al traer imagen:", err));
 }, []); */
         //fetch("https://api.nekosapi.com/v4/images?rating=explicit")
-        fetch("https://api.nekosapi.com/v4/images")
+        fetch("https://api.nekosapi.com/v4/images?limit=10")
             .then((res) => res.json())
             .then((data) => {
                 const items = data?.items;
@@ -63,10 +63,28 @@ export const Home = () => {
 
                     // Guarda todo el array correctamente
                     setDataArray(items);
-                    //console.log("Datos recibidos:", JSON.stringify(items, null, 2));
+                    //console.log("Datos recibidos:", JSON.stringify(items, null));
+
+
+
                 } else {
                     console.warn("No se encontraron imágenes en la respuesta.");
                 }
+
+                /* {"id":4381,"url":"https://s3.nyeki.dev/nekos-api/images/original/6106851a-c6ae-4262-9687-ae0421f48a3c.webp","rating":"suggestive",
+                "color_dominant":[218,202,192],"color_palette":[[74,65,62],[216,198,188],[107,80,74],[143,125,114],[247,244,237],[153,149,141],[113,102,83],[182,135,146],[92,116,76]],
+                "artist_name":null,"tags":["exposed_girl_breasts","girl","large_breasts","black_hair"],"source_url":null} */
+                
+                
+                /* items.forEach(element => {
+                    console.log(element.id);
+                    console.log(element.url);
+                    console.log(element.rating);
+                    console.log(element.artist_name);
+                    console.log(element.tags);
+                    console.log(element.source_url);
+                }); */
+
             })
             .catch((err) => console.error("Error al traer imagen:", err));
     }, []);
@@ -94,7 +112,7 @@ export const Home = () => {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
                 numColumns={2}
-               
+
                 //contentContainerStyle={[dynamicStyles.dynamicMainContainer, stylesAppTheme.mainContainer,]}
                 //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]} // Estilo para englobar las columnas
                 /* ListHeaderComponent={() => (
