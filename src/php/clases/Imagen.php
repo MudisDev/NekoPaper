@@ -1,5 +1,5 @@
 <?php
-require_once 'Conexion';
+require_once 'Conexion.php';
 
 class Imagen
 {
@@ -19,20 +19,9 @@ class Imagen
         "artista",
         "clasificacion",
         "url_fuente",
-        "fecha_insercion",
-        "fecha_actualizacion",
+        /* "fecha_insercion",
+        "fecha_actualizacion", */
         "id_imagen_api",
-    ];
-
-    private $array_imagen_insert = [
-        $this->url,
-        $this->api_origen,
-        $this->artista,
-        $this->clasificacion,
-        $this->url_fuente,
-        $this->fecha_insercion,
-        $this->fecha_actualizacion,
-        $this->id_imagen_api,
     ];
 
     public function __construct(array $datos)
@@ -47,7 +36,28 @@ class Imagen
     public function Registrar_Imagen()
     {
         $conexion = new Conexion();
-        $resultado = $conexion->SetInsert("Imagen", $this->array_insert, $this->array_imagen_insert);
+        $resultado = $conexion->SetInsert(
+            "Imagen",
+            $this->array_insert,
+            [
+                $this->url,
+                $this->api_origen,
+                $this->artista,
+                $this->clasificacion,
+                $this->url_fuente,
+               /*  $this->fecha_insercion,
+                $this->fecha_actualizacion, */
+                $this->id_imagen_api,
+            ]
+        );
+        return $resultado;
+    }
+
+    public function Imagen_Existe()
+    {
+        // Escapamos los valores para seguridad
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Imagen", ["*"], "id_imagen_api = '$this->id_imagen_api' AND api_origen = '$this->api_origen'");
         return $resultado;
     }
 

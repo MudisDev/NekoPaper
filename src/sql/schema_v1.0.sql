@@ -65,3 +65,6 @@ DROP Table tiene_etiqueta;
 
 SELECT * FROM usuario;
 SELECT * FROM etiqueta;
+SELECT * FROM imagen;
+
+DELETE FROM imagen;

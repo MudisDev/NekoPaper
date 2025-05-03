@@ -5,9 +5,9 @@ import { NekoImageData } from './Home'
 
 export const DevTool = () => {
 
-/*     interface TagInterface {
-        name_tag
-    } */
+    /*     interface TagInterface {
+            name_tag
+        } */
 
     const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
     //const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
@@ -33,6 +33,7 @@ export const DevTool = () => {
                 }
 
                 const etiquetas = [];
+                const imagenes = [];
 
                 items.forEach(element => {
                     console.log(element.id);
@@ -41,6 +42,15 @@ export const DevTool = () => {
                     console.log(element.artist_name);
                     console.log(element.tags);
                     console.log(element.source_url);
+
+                    imagenes.push({
+                        id: element.id,
+                        url: element.url,
+                        rating: element.rating,
+                        artist_name: element.artist_name,
+                        source_url: element.source_url
+                      });
+
 
                     element.tags.forEach(tag => {
                         etiquetas.push(tag);
@@ -51,34 +61,71 @@ export const DevTool = () => {
                 const etiquetasUnicas = Array.from(new Set(etiquetas));
                 console.log("Etiquetas sin duplicados -> ", etiquetasUnicas);
 
-                Registrar_etiquetas(etiquetasUnicas);
+                console.log(imagenes);
+                Registrar_Etiquetas(etiquetasUnicas);
+                Registrar_Imagenes(imagenes);
 
 
             })
             .catch((err) => console.error("Error al traer imagen:", err));
     }
 
-    const Registrar_etiquetas = async (etiquetas: string[]) => {
+    const Registrar_Etiquetas = async (etiquetas: string[]) => {
         const api_origen = "NekosApi";
-    
+
         for (const tag of etiquetas) {
             try {
                 //const response = await fetch(`http://192.168.18.5/nekopaper/api/etiqueta/registrar_etiqueta.php?name_tag=${encodeURIComponent(tag)}&api_origen=${api_origen}`);
                 const response = await fetch(`http://192.168.18.5/nekopaper/api/etiqueta/registrar_etiqueta.php?nombre=${tag}&api_origen=${api_origen}`);
                 const data = await response.json();
                 console.log("Data - >", data);
-                
+
                 if (data.Error || data.Warning) {
                     console.log(`Error al insertar la etiqueta "${tag}"`);
                 } else {
                     console.log(`Etiqueta "${tag}" insertada correctamente`);
                 }
-    
+
             } catch (e) {
                 console.error(`Error con la etiqueta "${tag}": ${e}`);
             }
         }
     }
+
+    const Registrar_Imagenes = async (imagenes: {
+        id: string,
+        url: string,
+        rating: string,
+        artist_name: string,
+        source_url: string
+      }[]) => {
+        const api_origen = "NekosApi";
+      
+        for (const img of imagenes) {
+          try {
+            const url = `http://192.168.18.5/nekopaper/api/imagen/registrar_imagen.php?` +
+              `id_imagen_api=${encodeURIComponent(img.id)}` +
+              `&url=${encodeURIComponent(img.url)}` +
+              `&clasificacion=${encodeURIComponent(img.rating)}` +
+              `&artista=${encodeURIComponent(img.artist_name)}` +
+              `&url_fuente=${encodeURIComponent(img.source_url)}` +
+              `&api_origen=${api_origen}`;
+      
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log("Data ->", data);
+      
+            if (data.Error || data.Warning) {
+              console.log(`Error al insertar la imagen "${img.id}"`);
+            } else {
+              console.log(`Imagen "${img.id}" insertada correctamente`);
+            }
+      
+          } catch (e) {
+            console.error(`Error con la imagen "${img.id}": ${e}`);
+          }
+        }
+      };
 
 
     return (
