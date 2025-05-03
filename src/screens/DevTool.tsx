@@ -13,7 +13,7 @@ export const DevTool = () => {
     //const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
 
     const ConsumirApi = () => {
-        fetch("https://api.nekosapi.com/v4/images?limit=10")
+        fetch("https://api.nekosapi.com/v4/images?limit=100")
             .then((res) => res.json())
             .then((data) => {
                 const items = data?.items;

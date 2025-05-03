@@ -8,7 +8,7 @@ import { NekosAPI } from 'nekosapi';
 import { useNavigation } from '@react-navigation/native';
 import { stylesAppTheme } from '../theme/AppTheme';
 
-export interface NekoImageData {
+/* export interface NekoImageData {
     id: number;
     url: string;
     rating: string;
@@ -17,6 +17,19 @@ export interface NekoImageData {
     artist_name: string | null;
     tags: string[];
     source_url: string | null;
+} */
+
+export interface NekoImageData {
+    id: number;
+    url: string;
+    //rating: 'safe' | 'suggestive' | 'explicit' | 'xxx';
+    rating: string;
+    artist_name: string | null;
+    source_url: string | null;
+    api_source: string;
+    api_id: string;
+    insertion_date: string;
+    update_date: string;
 }
 
 export const Home = () => {
@@ -27,67 +40,86 @@ export const Home = () => {
 
     const navigation = useNavigation();
 
-    useEffect(() => {
-        //fetch("https://nekos.best/api/v2/neko")
-        //fetch("https://api.nekosapi.com/v4/images/random")
-        /* .then((res) => res.json())
-        .then((data) => {
-            //const url = data.results?.[0]?.url;
-            //const url = data.results?.[0]?.url;
-            const url = data?.[0]?.url;
-            //const url = data.results?.url;
-            if (url) {
-                setImageUrl(url);
-                //console.log(`url -> ${url}`);
+    // useEffect(() => {
+    //fetch("https://nekos.best/api/v2/neko")
+    //fetch("https://api.nekosapi.com/v4/images/random")
+    /* .then((res) => res.json())
+    .then((data) => {
+        //const url = data.results?.[0]?.url;
+        //const url = data.results?.[0]?.url;
+        const url = data?.[0]?.url;
+        //const url = data.results?.url;
+        if (url) {
+            setImageUrl(url);
+            //console.log(`url -> ${url}`);
 
-            }
-            // Guarda todos los datos recibidos en el estado
-            setDataArray(data);
+        }
+        // Guarda todos los datos recibidos en el estado
+        setDataArray(data);
 
 
-            console.log(JSON.stringify(data));
-        })
-        .catch((err) => console.error("Error al traer imagen:", err));
+        console.log(JSON.stringify(data));
+    })
+    .catch((err) => console.error("Error al traer imagen:", err));
 }, []); */
-        //fetch("https://api.nekosapi.com/v4/images?rating=explicit")
-        fetch("https://api.nekosapi.com/v4/images?limit=10")
+    //fetch("https://api.nekosapi.com/v4/images?rating=explicit")
+    /*  fetch("https://api.nekosapi.com/v4/images?limit=10")
+         .then((res) => res.json())
+         .then((data) => {
+             const items = data?.items;
+
+             if (Array.isArray(items) && items.length > 0) {
+
+                 // Guarda todo el array correctamente
+                 setDataArray(items);
+                 //console.log("Datos recibidos:", JSON.stringify(items, null));
+
+
+
+             } else {
+                 console.warn("No se encontraron imágenes en la respuesta.");
+             }
+
+             
+
+         })
+         .catch((err) => console.error("Error al traer imagen:", err));
+ }, []); */
+
+    useEffect(() => {
+        fetch("http://192.168.18.5/nekopaper/api/imagen/mostrar_imagenes.php")
             .then((res) => res.json())
             .then((data) => {
-                const items = data?.items;
+                //const items = data?.items;
+                //const items = data[0];
 
-                if (Array.isArray(items) && items.length > 0) {
-                    /* const firstImage = items[0]?.url;
-                    if (firstImage) {
-                        setImageUrl(firstImage);
-                    } */
+                //setDataArray(data);
 
-                    // Guarda todo el array correctamente
-                    setDataArray(items);
-                    //console.log("Datos recibidos:", JSON.stringify(items, null));
-
-
-
+                console.log("TRAYENDO RESULTADOS DE BD Bv");
+                if (Array.isArray(data) && data.length > 0) {
+                    const mappedData: NekoImageData[] = data.map((item: any) => ({
+                        id: parseInt(item.id_imagen),
+                        url: item.url,
+                        rating: item.clasificacion,
+                        artist_name: item.artista === "null" ? null : item.artista,
+                        source_url: item.url_fuente === "null" ? null : item.url_fuente,
+                        api_source: item.api_origen,
+                        api_id: item.id_imagen_api,
+                        insertion_date: item.fecha_insercion,
+                        update_date: item.fecha_actualizacion,
+                    }));
+    
+                    setDataArray(mappedData);
                 } else {
                     console.warn("No se encontraron imágenes en la respuesta.");
                 }
 
-                /* {"id":4381,"url":"https://s3.nyeki.dev/nekos-api/images/original/6106851a-c6ae-4262-9687-ae0421f48a3c.webp","rating":"suggestive",
-                "color_dominant":[218,202,192],"color_palette":[[74,65,62],[216,198,188],[107,80,74],[143,125,114],[247,244,237],[153,149,141],[113,102,83],[182,135,146],[92,116,76]],
-                "artist_name":null,"tags":["exposed_girl_breasts","girl","large_breasts","black_hair"],"source_url":null} */
-                
-                
-                /* items.forEach(element => {
-                    console.log(element.id);
-                    console.log(element.url);
-                    console.log(element.rating);
-                    console.log(element.artist_name);
-                    console.log(element.tags);
-                    console.log(element.source_url);
-                }); */
+
 
             })
             .catch((err) => console.error("Error al traer imagen:", err));
     }, []);
+
 
     const renderItem = ({ item }: { item: NekoImageData }) => (
         <TouchableOpacity
