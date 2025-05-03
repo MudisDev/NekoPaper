@@ -1,3 +1,4 @@
+-- Active: 1703272465031@@127.0.0.1@3306@nekopaper
 CREATE DATABASE NekoPaper;
 
 USE NekoPaper;
@@ -63,3 +64,4 @@ DROP Table favorito;
 DROP Table tiene_etiqueta;
 
 SELECT * FROM usuario;
+SELECT * FROM etiqueta;

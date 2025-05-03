@@ -10,12 +10,7 @@ class Etiqueta
 
     private $array_insert = [
         "nombre",
-        "api_origen",
-    ];
-
-    private $array_etiqueta_insert = [
-        $this->id_etiqueta,
-        $this->api_origen,
+        "api_origen"
     ];
 
     public function __construct(array $datos)
@@ -30,7 +25,17 @@ class Etiqueta
     public function Registrar_Etiqueta()
     {
         $conexion = new Conexion();
-        $resultado = $conexion->SetInsert("Etiqueta", $this->array_insert, $this->array_etiqueta_insert);
+        $resultado = $conexion->SetInsert("Etiqueta", $this->array_insert, [
+            $this->nombre,
+            $this->api_origen
+        ]);
+        return $resultado;
+    }
+
+    public function Etiqueta_Existe()
+    {
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Etiqueta", ["*"], "nombre = $this->nombre");
         return $resultado;
     }
 }

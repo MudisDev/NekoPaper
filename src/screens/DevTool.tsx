@@ -5,8 +5,12 @@ import { NekoImageData } from './Home'
 
 export const DevTool = () => {
 
+/*     interface TagInterface {
+        name_tag
+    } */
 
     const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
+    //const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
 
     const ConsumirApi = () => {
         fetch("https://api.nekosapi.com/v4/images?limit=10")
@@ -47,9 +51,33 @@ export const DevTool = () => {
                 const etiquetasUnicas = Array.from(new Set(etiquetas));
                 console.log("Etiquetas sin duplicados -> ", etiquetasUnicas);
 
+                Registrar_etiquetas(etiquetasUnicas);
+
 
             })
             .catch((err) => console.error("Error al traer imagen:", err));
+    }
+
+    const Registrar_etiquetas = async (etiquetas: string[]) => {
+        const api_origen = "NekosApi";
+    
+        for (const tag of etiquetas) {
+            try {
+                //const response = await fetch(`http://192.168.18.5/nekopaper/api/etiqueta/registrar_etiqueta.php?name_tag=${encodeURIComponent(tag)}&api_origen=${api_origen}`);
+                const response = await fetch(`http://192.168.18.5/nekopaper/api/etiqueta/registrar_etiqueta.php?nombre=${tag}&api_origen=${api_origen}`);
+                const data = await response.json();
+                console.log("Data - >", data);
+                
+                if (data.Error) {
+                    console.error(`Error al insertar la etiqueta "${tag}"`);
+                } else {
+                    console.log(`Etiqueta "${tag}" insertada correctamente`);
+                }
+    
+            } catch (e) {
+                console.error(`Error con la etiqueta "${tag}": ${e}`);
+            }
+        }
     }
 
 
