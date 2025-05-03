@@ -9,8 +9,13 @@ export const Profile = () => {
   return (
     <View style={stylesAppTheme.container}>
       <Text>Profile Screen Bv</Text>
-      <Text>{userData?.name || "nombre"}</Text>
-      <Text>Profile Screen Bv</Text>
+      <Text></Text>
+      <Text>Nombre: {userData?.name}</Text>
+      <Text>Username: {userData?.username}</Text>
+      <Text>Telefono:{ userData?.phoneNumber}</Text>
+      <Text>Email:{ userData?.email}</Text>
+      <Text>Foto Perfil: {userData?.profilePhoto}</Text>
+      <Text>Genero:{ userData?.gender}</Text>
     </View>
   )
 }
