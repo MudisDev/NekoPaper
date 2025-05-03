@@ -12,8 +12,8 @@ export function StackNavigator() {
   return (
     <Stack.Navigator
     initialRouteName='LogIn'>
-      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
-      <Stack.Screen name="LogIn" component={LogIn} />
+      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{headerShown: false}} />
+      <Stack.Screen name="LogIn" component={LogIn} options={{headerShown : false}} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Wallpaper" component={Wallpaper} options={{headerShown: false}} />
 

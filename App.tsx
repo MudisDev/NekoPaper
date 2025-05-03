@@ -7,15 +7,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigator } from './src/navigators/StackNavigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { UserProvider } from './src/context/UserContext';
 
 
 export default function App() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer>
-        <StackNavigator />
-      </NavigationContainer>
-    </GestureHandlerRootView>
+
+    <UserProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <NavigationContainer>
+          <StackNavigator />
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </UserProvider>
   );
 }
 

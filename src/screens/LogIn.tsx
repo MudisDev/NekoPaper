@@ -1,54 +1,78 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useState, useContext, use } from 'react'
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { stylesAppTheme } from '../theme/AppTheme'
+import { UserContext } from '../context/UserContext'
 
 export const LogIn = () => {
 
     const navigation = useNavigation();
+    const [username, setUsername] = useState<string | null>();
+    const [password, setPassword] = useState<string | null>();
+
+    const { userData,setUserData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
+
+    const IniciarSesion = async () => {
+        try {
+            //const response = await fetch(`http://localhost/nekopaper/api/usuario/iniciar_sesion.php?username=${username}&password=${password}`);
+            const response = await fetch(`http://192.168.18.5/nekopaper/api/usuario/iniciar_sesion.php?username=${username}&password=${password}`);
+            const data = await response.json();
+            // Retorna los datos para ser usados en el componente
+            console.log(data);
+
+            const user = data[0];
+            console.log(`user -> ${user}`);
+            console.log(`userIsArray -> ${Array.isArray(user)}`);
+            
+            if (!data.Error) { 
+            
+                const userDataResponse = {
+                    username: user.username,
+                    name: user.nombre,
+                    phoneNumber: user.telefono,
+                    email: user.email,
+                    profilePhoto: user.foto_perfil,
+                    //registerDate: user.fecha_registro,
+                    idUser: user.id_usuario,
+                    gender: user.genero
+                }
+                
+                /* console.log(`userdata -> ${userDataResponse}`);
+                const array = JSON.stringify(userDataResponse);
+                console.log(Array.isArray(array)); */
+
+                setUserData(userDataResponse);
+
+                console.log(userData?.email);
+
+
+
+                navigation.navigate("BottomTabNavigator");
+            }
+
+
+        } catch (e) {
+            console.error(`error: ${e}`);
+        }
+    }
 
 
     return (
         <View style={{ alignItems: 'center', flex: 1, marginTop: 90 }}>
 
-            <Text style={style.title}>NekoPaper</Text>
+            <Text style={stylesAppTheme.title}>NekoPaper</Text>
 
-            <TextInput style={style.textinput} placeholder='Username' placeholderTextColor={"black"} />
+            <TextInput value={username ?? ''} onChangeText={setUsername} style={stylesAppTheme.textinput} placeholder='Username' placeholderTextColor={"black"} />
             <Text></Text>
-            <TextInput style={style.textinput} placeholder='Password' placeholderTextColor={"black"} />
+            <TextInput value={password ?? ''} onChangeText={setPassword} style={stylesAppTheme.textinput} placeholder='Password' placeholderTextColor={"black"} />
 
             <Text></Text>
 
 
-            <TouchableOpacity style={style.button} onPress={() => navigation.navigate('BottomTabNavigator')}><Text style={style.textButton}>Home</Text></TouchableOpacity>
+            {/* <TouchableOpacity style={stylesAppTheme.button} onPress={() => navigation.navigate('BottomTabNavigator')}><Text style={stylesAppTheme.textButton}>Home</Text></TouchableOpacity> */}
+            <TouchableOpacity style={stylesAppTheme.button} onPress={IniciarSesion}><Text style={stylesAppTheme.textButton}>Home</Text></TouchableOpacity>
             <Text></Text>
-            <TouchableOpacity style={style.button} onPress={() => navigation.navigate('Register')}><Text style={style.textButton}>Registro</Text></TouchableOpacity>
+            <TouchableOpacity style={stylesAppTheme.button} onPress={() => navigation.navigate('Register')}><Text style={stylesAppTheme.textButton}>Registro</Text></TouchableOpacity>
         </View>
     )
 }
-
-const style = StyleSheet.create({
-    textinput: {
-        backgroundColor: "white",
-        width: "80%",
-        height: 40,
-        borderRadius: 5,
-    },
-    button: {
-        width: "50%",
-        height: 30,
-        backgroundColor: "white",
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 20,
-    },
-    textButton: {
-        color: "black",
-        fontSize: 15,
-        textTransform: 'uppercase',
-    },
-    title: {
-        fontSize: 30,
-        marginBottom: 30,
-        textDecorationStyle: 'solid',
-    }
-})

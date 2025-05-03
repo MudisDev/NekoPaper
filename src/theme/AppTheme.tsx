@@ -1,0 +1,35 @@
+import { StyleSheet } from "react-native";
+
+export const stylesAppTheme = StyleSheet.create({
+    container: {
+        flex: 1,
+        //backgroundColor: '#fff',
+        marginTop:20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textinput: {
+        backgroundColor: "white",
+        width: "80%",
+        height: 40,
+        borderRadius: 5,
+    },
+    button: {
+        width: "50%",
+        height: 30,
+        backgroundColor: "white",
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 20,
+    },
+    textButton: {
+        color: "black",
+        fontSize: 15,
+        textTransform: 'uppercase',
+    },
+    title: {
+        fontSize: 30,
+        marginBottom: 30,
+        textDecorationStyle: 'solid',
+    },
+});

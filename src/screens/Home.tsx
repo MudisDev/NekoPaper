@@ -4,7 +4,9 @@ import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'rea
 import { FlatList, } from 'react-native-gesture-handler';
 
 import { NekosAPI } from 'nekosapi';
+
 import { useNavigation } from '@react-navigation/native';
+import { stylesAppTheme } from '../theme/AppTheme';
 
 interface NekoImageData {
     id: number;
@@ -61,7 +63,7 @@ export const Home = () => {
 
                     // Guarda todo el array correctamente
                     setDataArray(items);
-                    console.log("Datos recibidos:", JSON.stringify(items, null, 2));
+                    //console.log("Datos recibidos:", JSON.stringify(items, null, 2));
                 } else {
                     console.warn("No se encontraron imágenes en la respuesta.");
                 }
@@ -86,7 +88,7 @@ export const Home = () => {
     );
 
     return (
-        <View style={styles.container}>
+        <View style={stylesAppTheme.container}>
             <FlatList
                 data={dataArray}
                 keyExtractor={(item) => item.id.toString()}
@@ -123,11 +125,3 @@ export const Home = () => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        /* alignItems: 'center',
-        justifyContent: 'center', */
-    },
-});
