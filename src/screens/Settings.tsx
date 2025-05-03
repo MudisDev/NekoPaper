@@ -10,6 +10,9 @@ export const Settings = () => {
   return (
     <View style={stylesAppTheme.container}>
       <Text>Settings Screen Bv</Text>
+      <Text></Text>
+      <TouchableOpacity style={stylesAppTheme.button} onPress={()=> navigation.navigate("DevTool")}><Text>DevTool Bv</Text></TouchableOpacity>
+      <Text></Text>
       <TouchableOpacity style={stylesAppTheme.button} onPress={() => { setUserData(null); navigation.navigate('LogIn'); }}><Text style={stylesAppTheme.textButton}>Cerrar Sesion</Text></TouchableOpacity>
 
     </View>
