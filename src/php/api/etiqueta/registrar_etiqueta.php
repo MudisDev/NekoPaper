@@ -10,7 +10,13 @@ $nombre = $_GET['nombre'];
 $api_origen = $_GET['api_origen'];
 
 $etiqueta = new Etiqueta(["nombre" => $nombre, "api_origen" => $api_origen]);
-$resultado = $etiqueta->Registrar_Etiqueta();
-echo json_encode($resultado);
+$busqueda = $etiqueta->Etiqueta_Existe();
+
+if (isset($busqueda["Error"])) {
+    $resultado = $etiqueta->Registrar_Etiqueta();
+    echo json_encode($resultado);
+} else {
+    echo json_encode(["Warning" => "La etiqueta ya existe.", "datos" => $busqueda]);
+}
 
 ?>

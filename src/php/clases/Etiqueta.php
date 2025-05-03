@@ -34,8 +34,9 @@ class Etiqueta
 
     public function Etiqueta_Existe()
     {
+        // Escapamos los valores para seguridad
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Etiqueta", ["*"], "nombre = $this->nombre");
+        $resultado = $conexion->SetSelect("Etiqueta", ["*"], "nombre = '$this->nombre' AND api_origen = '$this->api_origen'");
         return $resultado;
     }
 }

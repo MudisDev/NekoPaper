@@ -68,8 +68,8 @@ export const DevTool = () => {
                 const data = await response.json();
                 console.log("Data - >", data);
                 
-                if (data.Error) {
-                    console.error(`Error al insertar la etiqueta "${tag}"`);
+                if (data.Error || data.Warning) {
+                    console.log(`Error al insertar la etiqueta "${tag}"`);
                 } else {
                     console.log(`Etiqueta "${tag}" insertada correctamente`);
                 }

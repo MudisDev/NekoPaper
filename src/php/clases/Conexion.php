@@ -47,16 +47,23 @@ class Conexion
             $this->sql .= " WHERE $condiciones";
         }
 
+        $coincidenciaBusqueda = false;
+
         $resultados = [];
         $resultado = $this->conn->query($this->sql);
 
         if ($resultado && $resultado->num_rows > 0) {
             while ($fila = $resultado->fetch_assoc()) {
+                $coincidenciaBusqueda = true;
                 $resultados[] = $fila; // Cada fila es un diccionario (asociativo)
             }
         }
 
-        return $resultados;
+        if ($coincidenciaBusqueda == false) {
+            return ["Error" => "No hubo coincidencias"];
+        } else {
+            return $resultados;
+        }
     }
 
     public function IniciarSesion(string $tabla, array $columnas = ['*'], $columna_usuario, $username, $password)
