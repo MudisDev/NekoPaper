@@ -57,20 +57,26 @@ class Usuario
         $conexion = new Conexion();
         $resultado = $conexion->IniciarSesion("Usuario", ["*"], "username", $this->username, $this->password);
         if (!isset($resultado['Error'])) {
-                $this->Set_Datos($resultado[0]);
+            $this->Set_Datos($resultado[0]);
         }
         return $resultado;
     }
 
     public function Set_Datos(array $datos)
     {
-        foreach($datos as $key => $value){
-            if(property_exists($this, $key)){
+        foreach ($datos as $key => $value) {
+            if (property_exists($this, $key)) {
                 $this->$key = $value;
             }
         }
     }
 
+    public function Marcar_Favorito($id_imagen)
+    {
+        $conexion = new Conexion();
+        $resultado = $conexion->SetInsert("Favorito", ["id_usuario", "id_imagen"], [$this->id_usuario, $id_imagen]);
+        return $resultado;
+    }
 }
 
 
