@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import { FlatList, } from 'react-native-gesture-handler';
-
 import { NekosAPI } from 'nekosapi';
 
 import { useNavigation } from '@react-navigation/native';
@@ -37,6 +36,7 @@ export const Home = () => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
+
 
     const navigation = useNavigation();
 
@@ -108,7 +108,7 @@ export const Home = () => {
                         insertion_date: item.fecha_insercion,
                         update_date: item.fecha_actualizacion,
                     }));
-    
+
                     setDataArray(mappedData);
                 } else {
                     console.warn("No se encontraron imágenes en la respuesta.");
@@ -124,7 +124,7 @@ export const Home = () => {
     const renderItem = ({ item }: { item: NekoImageData }) => (
         <TouchableOpacity
             //style={stylesAppTheme.animeCell}
-            onPress={() => navigation.navigate("Wallpaper", { url: item?.url, tags: item?.tags, artist_name: item?.artist_name })}
+            onPress={() => navigation.navigate("Wallpaper", { url: item?.url, tags: item?.tags, artist_name: item?.artist_name, id:item?.id })}
         >
             <Image
                 source={{ uri: item.url }}
