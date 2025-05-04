@@ -87,7 +87,7 @@ export const Home = () => {
  }, []); */
 
     useEffect(() => {
-        fetch("http://192.168.18.5/nekopaper/api/imagen/mostrar_imagenes.php")
+        fetch("http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes.php")
             .then((res) => res.json())
             .then((data) => {
                 //const items = data?.items;
