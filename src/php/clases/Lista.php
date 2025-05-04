@@ -25,6 +25,14 @@ class Lista
         $this->Set_Lista($resultado);
     }
 
+    public function Consultar_Imagenes_Por_Etiqueta($id_etiqueta)
+    {
+        $condicion = "id_etiqueta = '$id_etiqueta'";
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Vista_Mostrar_Imagen_Por_Etiqueta", ["*"], $condicion);
+        $this->Set_Lista($resultado);
+    }
+
     public function Consultar_Etiquetas()
     {
         $conexion = new Conexion();

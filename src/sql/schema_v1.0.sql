@@ -84,6 +84,15 @@ SELECT te.id_imagen, te.id_etiqueta, e.nombre AS nombre_etiqueta
 FROM tiene_etiqueta te
     JOIN etiqueta e ON te.id_etiqueta = e.id_etiqueta;
 
+CREATE VIEW Vista_Mostrar_Imagen_Por_Etiqueta AS
+SELECT
+    te.id_imagen AS id_imagen_etiqueta,
+    te.id_etiqueta,
+    i.url,
+    i.id_imagen AS id_imagen_real
+FROM tiene_etiqueta te
+    JOIN imagen i ON te.id_imagen = i.id_imagen;
+
 CREATE VIEW Vista_Favorito AS
 SELECT f.id_favorito, f.id_usuario, f.id_imagen, f.fecha_favorito, i.url AS url
 FROM favorito f
@@ -92,6 +101,13 @@ FROM favorito f
 SHOW TABLES;
 
 SELECT * FROM vista_tiene_etiqueta;
+
 SELECT * FROM vista_favorito;
 
+SELECT * FROM vista_mostrar_imagen_por_etiqueta;
+
 DROP VIEW vista_tiene_etiqueta;
+
+DROP VIEW vista_mostrar_imagen_por_etiqueta;
+
+SELECT * FROM etiqueta;
