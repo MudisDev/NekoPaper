@@ -14,7 +14,7 @@ export const DevTool = () => {
 
   const ConsumirApi = async () => {
     try {
-      const res = await fetch("https://api.nekosapi.com/v4/images?limit=100&offset=100");
+      const res = await fetch("https://api.nekosapi.com/v4/images?limit=100");
       const data = await res.json();
       const items = data?.items;
 
@@ -31,7 +31,8 @@ export const DevTool = () => {
         url: string,
         rating: string,
         artist_name: string,
-        source_url: string
+        source_url: string,
+        tags: string[],
       }[] = [];
 
       for (const element of items) {
@@ -40,7 +41,8 @@ export const DevTool = () => {
           url: element.url,
           rating: element.rating,
           artist_name: element.artist_name,
-          source_url: element.source_url
+          source_url: element.source_url,
+          tags: element.tags
         });
 
         for (const tag of element.tags) {
@@ -89,7 +91,8 @@ export const DevTool = () => {
     url: string,
     rating: string,
     artist_name: string,
-    source_url: string
+    source_url: string,
+    tags: string[],
   }[]) => {
     const api_origen = "NekosApi";
 
@@ -111,6 +114,8 @@ export const DevTool = () => {
           console.log(`Error al insertar la imagen "${img.id}"`);
         } else {
           console.log(`Imagen "${img.id}" insertada correctamente`);
+          // ✅ Asociar etiquetas con imagen
+          await AsociarImagenConEtiquetas(img.id, img.tags);
         }
 
       } catch (e) {
@@ -119,17 +124,35 @@ export const DevTool = () => {
     }
   };
 
+  const AsociarImagenConEtiquetas = async (idImagen: string, etiquetas: string[]) => {
+    const api_origen = "NekosApi";
+
+    try {
+      const url = `http://192.168.18.5/nekopaper/api/imagen/asociar_etiquetas.php?` +
+        `id_imagen_api=${idImagen}` +
+        `&etiquetas=${etiquetas}` +
+        `&api_origen=${api_origen}`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log("Data asociacion ->", data);
+
+
+    } catch (e) {
+      console.error(`Error al asociar "${etiquetas}" con imagen "${idImagen}": ${e}`);
+    }
+
+  };
+
 
   return (
-
-
-
-
     <View style={stylesAppTheme.container}>
       <Text>DevTool Screen Bv</Text>
       <Text></Text>
       <TextInput style={stylesAppTheme.textinput} placeholder='tags'></TextInput>
+      <Text></Text>
       <TextInput style={stylesAppTheme.textinput} placeholder='offset'></TextInput>
+      <Text></Text>
       <TextInput style={stylesAppTheme.textinput} placeholder='count'></TextInput>
       <Text></Text>
       <TouchableOpacity style={stylesAppTheme.button} onPress={ConsumirApi}><Text>Consumir API</Text></TouchableOpacity>

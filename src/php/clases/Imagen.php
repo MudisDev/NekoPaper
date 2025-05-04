@@ -45,8 +45,8 @@ class Imagen
                 $this->artista,
                 $this->clasificacion,
                 $this->url_fuente,
-               /*  $this->fecha_insercion,
-                $this->fecha_actualizacion, */
+                /*  $this->fecha_insercion,
+                 $this->fecha_actualizacion, */
                 $this->id_imagen_api,
             ]
         );
@@ -58,6 +58,7 @@ class Imagen
         // Escapamos los valores para seguridad
         $conexion = new Conexion();
         $resultado = $conexion->SetSelect("Imagen", ["*"], "id_imagen_api = '$this->id_imagen_api' AND api_origen = '$this->api_origen'");
+
         return $resultado;
     }
 
