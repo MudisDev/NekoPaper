@@ -17,6 +17,14 @@ class Lista
         $this->Set_Lista($resultado);
     }
 
+    public function Consultar_Imagenes_Favoritas($id_usuario)
+    {
+        $condicion = "id_usuario = '$id_usuario'";
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Favorito", ["*"], $condicion);
+        $this->Set_Lista($resultado);
+    }
+
     public function Consultar_Etiquetas()
     {
         $conexion = new Conexion();
