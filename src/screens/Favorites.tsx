@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useCallback, useState } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { FlatList, } from 'react-native-gesture-handler';
 
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import { stylesAppTheme } from '../theme/AppTheme'
 import { UserContext } from '../context/UserContext';
@@ -29,39 +29,41 @@ export const Favorites = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    fetch(`http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes_favoritas.php?id_usuario=${userData?.idUser}`)
-      .then((res) => res.json())
-      .then((data) => {
+  //useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
+      fetch(`http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes_favoritas.php?id_usuario=${userData?.idUser}`)
+        .then((res) => res.json())
+        .then((data) => {
 
-        console.log("TRAYENDO RESULTADOS DE BD Bv");
-        console.log("Imagenes -> ", data);
-        if (Array.isArray(data) && data.length > 0) {
-          const mappedData: NekoImageData[] = data.map((item: any) => ({
-            id: parseInt(item.id_imagen),
-            url: item.url,
-            rating: item.clasificacion,
-            artist_name: item.artista === "null" ? null : item.artista,
-            source_url: item.url_fuente === "null" ? null : item.url_fuente,
-            api_source: item.api_origen,
-            api_id: item.id_imagen_api,
-            insertion_date: item.fecha_insercion,
-            update_date: item.fecha_actualizacion,
+          console.log("TRAYENDO RESULTADOS DE BD Bv");
+          console.log("Imagenes -> ", data);
+          if (Array.isArray(data) && data.length > 0) {
+            const mappedData: NekoImageData[] = data.map((item: any) => ({
+              id: parseInt(item.id_imagen),
+              url: item.url,
+              rating: item.clasificacion,
+              artist_name: item.artista === "null" ? null : item.artista,
+              source_url: item.url_fuente === "null" ? null : item.url_fuente,
+              api_source: item.api_origen,
+              api_id: item.id_imagen_api,
+              insertion_date: item.fecha_insercion,
+              update_date: item.fecha_actualizacion,
 
-          }));
-          data.forEach(element => {
-            console.log(`Data mapeada -> ${element['id_imagen']}`);
-            console.log(`Data mapeada -> ${element['url']}`);
+            }));
+            data.forEach(element => {
+              console.log(`Data mapeada -> ${element['id_imagen']}`);
+              console.log(`Data mapeada -> ${element['url']}`);
 
-          });
-          setDataArray(mappedData);
-        } else {
-          console.warn("No se encontraron imágenes en la respuesta.");
-        }
+            });
+            setDataArray(mappedData);
+          } else {
+            console.warn("No se encontraron imágenes en la respuesta.");
+          }
 
-      })
-      .catch((err) => console.error("Error al traer imagen:", err));
-  }, []);
+        })
+        .catch((err) => console.error("Error al traer imagen:", err));
+    }, []));
 
   const renderItem = ({ item }: { item: NekoImageData }) => (
     <TouchableOpacity
