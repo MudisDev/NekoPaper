@@ -21,7 +21,7 @@ class Lista
     {
         $condicion = "id_usuario = '$id_usuario'";
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Favorito", ["*"], $condicion);
+        $resultado = $conexion->SetSelect("Vista_Favorito", ["*"], $condicion);
         $this->Set_Lista($resultado);
     }
 

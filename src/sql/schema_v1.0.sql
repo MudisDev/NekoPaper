@@ -64,27 +64,34 @@ DROP Table favorito;
 DROP Table tiene_etiqueta;
 
 SELECT * FROM usuario;
+
 SELECT * FROM etiqueta;
+
 SELECT * FROM imagen;
+
 SELECT * FROM tiene_etiqueta;
+
 SELECT * FROM favorito;
 
 DELETE FROM imagen;
+
 DELETE FROM tiene_etiqueta;
+
 DELETE FROM favorito;
 
-
 CREATE VIEW Vista_Tiene_Etiqueta AS
-SELECT 
-    te.id_imagen,
-    te.id_etiqueta,
-    e.nombre AS nombre_etiqueta
-FROM 
-    tiene_etiqueta te
-JOIN 
-    etiqueta e ON te.id_etiqueta = e.id_etiqueta;
+SELECT te.id_imagen, te.id_etiqueta, e.nombre AS nombre_etiqueta
+FROM tiene_etiqueta te
+    JOIN etiqueta e ON te.id_etiqueta = e.id_etiqueta;
+
+CREATE VIEW Vista_Favorito AS
+SELECT f.id_favorito, f.id_usuario, f.id_imagen, f.fecha_favorito, i.url AS url
+FROM favorito f
+    JOIN imagen i ON f.id_imagen = i.id_imagen;
 
 SHOW TABLES;
 
 SELECT * FROM vista_tiene_etiqueta;
+SELECT * FROM vista_favorito;
+
 DROP VIEW vista_tiene_etiqueta;
