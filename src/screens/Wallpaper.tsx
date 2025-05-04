@@ -6,16 +6,23 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { stylesAppTheme } from '../theme/AppTheme';
 
+interface TagData {
+    id_tag: string,
+    name_tag: string,
+}
+
 export const Wallpaper = ({ route }) => {
     const navigation = useNavigation();
 
     const [image, setImage] = useState<string | null>(null)
     const [artist, setArtist] = useState<string | null>(null);
     const { width, height } = Dimensions.get('window');
-    const { url, tags, artist_name, id } = route.params;
-    const { userData, setUserData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
+    const { url, artist_name, id } = route.params;
+    const { userData, } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
 
     const [isFavorite, setIsFavorite] = useState<boolean>();
+
+    const [tags, setTags] = useState<TagData[] | null>();
 
 
     useEffect(() => {
@@ -30,8 +37,37 @@ export const Wallpaper = ({ route }) => {
     useFocusEffect(
         useCallback(() => {
             Consultar_Favorito();
+            Consultar_Etiquetas();
         }, [])
     )
+
+    const Consultar_Etiquetas = async () => {
+        try {
+            const url = `http://192.168.18.5/nekopaper/api/imagen/consultar_etiquetas.php?` +
+                `id_imagen=${id}`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log("Data etiquetas ->", data);
+
+            console.log("Array Etiquetas -> ", Array.isArray(data));
+
+            if (Array.isArray(data) && data.length > 0) {
+                const mappedData: TagData[] = data.map((item: any) => ({
+                    id_tag: item.id_etiqueta,
+                    name_tag: item.nombre_etiqueta,
+                }));
+
+                setTags(mappedData);
+            } else {
+                console.warn("No se encontraron imágenes en la respuesta.");
+            }
+
+
+        } catch (e) {
+            console.error(`Error al consultar etiquetas: ${e}`);
+        }
+    }
 
     const Consultar_Favorito = async () => {
         try {
@@ -81,24 +117,24 @@ export const Wallpaper = ({ route }) => {
                     style={{ width, height: height * 0.7, resizeMode: 'contain' }}
                 />
             )}
-            {artist && (
+            {/* {artist && (
                 <Text >Artista: {artist}</Text>
             )}
             {id && (
                 <Text >Id: {id}</Text>
             )}
-            <Text >IdUser: {userData?.idUser}</Text>
+            <Text >IdUser: {userData?.idUser}</Text> */}
             {tags && Array.isArray(tags) && (
                 <View style={styles.tagContainer}>
-                    {tags.map((tag: string, index: number) => (
-                        <Text key={index} style={styles.tagText}>#{tag}</Text>
+                    {tags.map((tag: TagData, index: number) => (
+                        <Text key={tag.id_tag} style={styles.tagText}>#{tag.name_tag}</Text>
                     ))}
                 </View>
             )}
 
             <TouchableOpacity style={stylesAppTheme.button} onPress={Marcar_Favorito}>
                 <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={25} color={"red"} />
-                </TouchableOpacity>
+            </TouchableOpacity>
 
         </ScrollView>
     );

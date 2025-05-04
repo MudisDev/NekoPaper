@@ -72,3 +72,19 @@ SELECT * FROM favorito;
 DELETE FROM imagen;
 DELETE FROM tiene_etiqueta;
 DELETE FROM favorito;
+
+
+CREATE VIEW Vista_Tiene_Etiqueta AS
+SELECT 
+    te.id_imagen,
+    te.id_etiqueta,
+    e.nombre AS nombre_etiqueta
+FROM 
+    tiene_etiqueta te
+JOIN 
+    etiqueta e ON te.id_etiqueta = e.id_etiqueta;
+
+SHOW TABLES;
+
+SELECT * FROM vista_tiene_etiqueta;
+DROP VIEW vista_tiene_etiqueta;
