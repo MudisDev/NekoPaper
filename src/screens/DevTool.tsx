@@ -12,9 +12,31 @@ export const DevTool = () => {
   const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
   //const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
 
+  const [tags, setTags] = useState<string | null>(null);
+  const [offset, setOffset] = useState<string | null>(null);
+  const [limit, setLimit] = useState<string | null>(null);
+  /* const [offset, setOffset] = useState<number | null>(null);
+  const [count, setCount] = useState<number | null>(null); */
+
+
   const ConsumirApi = async () => {
+    let baseUrl = 'https://api.nekosapi.com/v4/images';
+    let queryParams: string[] = [];
+
+    if (limit && limit.trim() !== '') {
+      queryParams.push(`limit=${encodeURIComponent(limit)}`);
+    }
+    if (offset && offset.trim() !== '') {
+      queryParams.push(`offset=${encodeURIComponent(offset)}`);
+    }
+    if (tags && tags.trim() !== '') {
+      queryParams.push(`tags=${encodeURIComponent(tags)}`);
+    }
+
+    const url = queryParams.length > 0 ? `${baseUrl}?${queryParams.join('&')}` : baseUrl;
+
     try {
-      const res = await fetch("https://api.nekosapi.com/v4/images?limit=100");
+      const res = await fetch(url);
       const data = await res.json();
       const items = data?.items;
 
@@ -149,11 +171,11 @@ export const DevTool = () => {
     <View style={stylesAppTheme.container}>
       <Text>DevTool Screen Bv</Text>
       <Text></Text>
-      <TextInput style={stylesAppTheme.textinput} placeholder='tags'></TextInput>
+      <TextInput style={stylesAppTheme.textinput} placeholder='tags' value={tags ?? ''} onChangeText={setTags}/* value={tags ?? ''} onChangeText={setTags} */></TextInput>
       <Text></Text>
-      <TextInput style={stylesAppTheme.textinput} placeholder='offset'></TextInput>
+      <TextInput style={stylesAppTheme.textinput} placeholder='offset' value={offset ?? ''} onChangeText={setOffset} /* value={offset ?? ''} onChangeText={setOffset} */></TextInput>
       <Text></Text>
-      <TextInput style={stylesAppTheme.textinput} placeholder='count'></TextInput>
+      <TextInput style={stylesAppTheme.textinput} placeholder='limit' value={limit ?? ''} onChangeText={setLimit} /* value={offset ?? ''} onChangeText={setOffset} */></TextInput>
       <Text></Text>
       <TouchableOpacity style={stylesAppTheme.button} onPress={ConsumirApi}><Text>Consumir API</Text></TouchableOpacity>
 
