@@ -81,12 +81,12 @@ export const Wallpaper = ({ route }) => {
                     style={{ width, height: height * 0.7, resizeMode: 'contain' }}
                 />
             )}
-            {/* {artist && (
+            {artist && (
                 <Text >Artista: {artist}</Text>
             )}
             {id && (
                 <Text >Id: {id}</Text>
-            )} */}
+            )}
             <Text >IdUser: {userData?.idUser}</Text>
             {tags && Array.isArray(tags) && (
                 <View style={styles.tagContainer}>

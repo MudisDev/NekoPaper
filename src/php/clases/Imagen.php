@@ -62,4 +62,11 @@ class Imagen
         return $resultado;
     }
 
+    public function Consultar_Etiquetas()
+    {
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Tiene_Etiqueta", ["id_etiqueta"], "id_imagen = '$this->id_imagen'");
+        return $resultado;
+    }
+
 }
