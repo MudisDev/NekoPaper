@@ -2,6 +2,8 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useContext, useEffect, useState } from 'react'
 import { View, Image, Dimensions, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native'
 import { UserContext } from '../context/UserContext';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 import { stylesAppTheme } from '../theme/AppTheme';
 
 export const Wallpaper = ({ route }) => {
@@ -65,7 +67,7 @@ export const Wallpaper = ({ route }) => {
                 </View>
             )}
 
-            <TouchableOpacity style={stylesAppTheme.button} onPress={Marcar_Favorito}><Text >Favorito Bv</Text></TouchableOpacity>
+            <TouchableOpacity style={stylesAppTheme.button} onPress={Marcar_Favorito}><Ionicons name={"heart-outline"} size={25} color={"red"} /></TouchableOpacity>
 
         </ScrollView>
     );

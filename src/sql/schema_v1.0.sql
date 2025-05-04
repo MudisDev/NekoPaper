@@ -71,3 +71,4 @@ SELECT * FROM favorito;
 
 DELETE FROM imagen;
 DELETE FROM tiene_etiqueta;
+DELETE FROM favorito;

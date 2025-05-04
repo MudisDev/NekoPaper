@@ -77,6 +77,15 @@ class Usuario
         $resultado = $conexion->SetInsert("Favorito", ["id_usuario", "id_imagen"], [$this->id_usuario, $id_imagen]);
         return $resultado;
     }
+
+    public function Favorito_Existe($id_imagen)
+    {
+        // Escapamos los valores para seguridad
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Favorito", ["*"], "id_usuario = '$this->id_usuario' AND id_imagen = '$id_imagen'");
+
+        return $resultado;
+    }
 }
 
 
