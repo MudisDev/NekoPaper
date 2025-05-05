@@ -14,7 +14,7 @@ export function StackNavigator() {
     initialRouteName='LogIn'>
       <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{headerShown: false}} />
       <Stack.Screen name="LogIn" component={LogIn} options={{headerShown : false}} />
-      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Register" component={Register} options={{headerShown: false}} />
       <Stack.Screen name="Wallpaper" component={Wallpaper} options={{headerShown: false}} />
       <Stack.Screen name="DevTool" component={DevTool} options={{headerShown: false}} />
 
