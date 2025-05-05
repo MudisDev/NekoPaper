@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { stylesAppTheme } from '../theme/AppTheme';
-import { add_favorite, consult_favorite, consult_tags } from '../const/UrlConfig';
+import { add_favorite, consult_favorite, consult_tags, delete_favorite } from '../const/UrlConfig';
 
 interface TagData {
     id_tag: string,
@@ -41,6 +41,10 @@ export const Wallpaper = ({ route }) => {
             Consultar_Etiquetas();
         }, [])
     )
+
+    useEffect(() => {
+        Consultar_Favorito();
+    },[isFavorite])
 
     const Consultar_Etiquetas = async () => {
         try {
@@ -104,13 +108,27 @@ export const Wallpaper = ({ route }) => {
             const response = await fetch(url);
             const data = await response.json();
             console.log("Data favorito ->", data);
-
+            setIsFavorite(true); // <-- Actualiza aquí
 
         } catch (e) {
             console.error(`Error al marcar como favorito: ${e}`);
         }
     }
 
+    const Borrar_Favorito = async () => {
+        try {
+            const url = `${delete_favorite}?` +
+                `id_imagen=${id}` +
+                `&id_usuario=${userData?.idUser}`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log("Data favorito ->", data);
+            setIsFavorite(false); // <-- Actualiza aquí
+        } catch (e) {
+            console.error(`Error al marcar como favorito: ${e}`);
+        }
+    }
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', paddingTop: 40 }}>
@@ -136,9 +154,19 @@ export const Wallpaper = ({ route }) => {
                 </View>
             )}
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.button} onPress={Marcar_Favorito}>
+                {/* <TouchableOpacity style={styles.button} onPress={Marcar_Favorito}>
                     <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={25} color={"red"} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                {isFavorite ?
+                    (<TouchableOpacity style={styles.button} onPress={Borrar_Favorito}>
+                        <Ionicons name={"heart"} size={25} color={"red"} />
+                    </TouchableOpacity>)
+                    :
+                    (<TouchableOpacity style={styles.button} onPress={Marcar_Favorito}>
+                        <Ionicons name={"heart-outline"} size={25} color={"red"} />
+                    </TouchableOpacity>)
+                }
+
                 <TouchableOpacity style={styles.button}>
                     <Ionicons name={"information"} size={25} color={"red"} />
                 </TouchableOpacity>
@@ -177,17 +205,17 @@ const styles = StyleSheet.create({
         //backgroundColor: 'red',
         width: '80%',
         flexDirection: 'row',
-        justifyContent:'center',
-        gap:15
+        justifyContent: 'center',
+        gap: 15
 
     },
-    button:{
-        width:55,
+    button: {
+        width: 55,
         height: 40,
         backgroundColor: "white",
         borderRadius: 15,
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
     }
-    
+
 });
