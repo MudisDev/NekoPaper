@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import { FlatList, } from 'react-native-gesture-handler';
@@ -6,6 +6,7 @@ import { NekosAPI } from 'nekosapi';
 
 import { useNavigation } from '@react-navigation/native';
 import { stylesAppTheme } from '../theme/AppTheme';
+import { show_images } from '../const/UrlConfig';
 
 /* export interface NekoImageData {
     id: number;
@@ -87,7 +88,9 @@ export const Home = () => {
  }, []); */
 
     useEffect(() => {
-        fetch("http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes.php")
+        //fetch("http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes.php")
+        fetch(`${show_images}`)
+
             .then((res) => res.json())
             .then((data) => {
                 //const items = data?.items;
@@ -124,7 +127,7 @@ export const Home = () => {
     const renderItem = ({ item }: { item: NekoImageData }) => (
         <TouchableOpacity
             //style={stylesAppTheme.animeCell}
-            onPress={() => navigation.navigate("Wallpaper", { url: item?.url, tags: item?.tags, artist_name: item?.artist_name, id:item?.id })}
+            onPress={() => navigation.navigate("Wallpaper", { url: item?.url, tags: item?.tags, artist_name: item?.artist_name, id: item?.id })}
         >
             <Image
                 source={{ uri: item.url }}

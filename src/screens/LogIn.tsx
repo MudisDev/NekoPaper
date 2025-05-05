@@ -3,6 +3,7 @@ import React, { useState, useContext, use } from 'react'
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
 import { stylesAppTheme } from '../theme/AppTheme'
 import { UserContext } from '../context/UserContext'
+import { login_path } from '../const/UrlConfig'
 
 export const LogIn = () => {
 
@@ -14,8 +15,10 @@ export const LogIn = () => {
 
     const IniciarSesion = async () => {
         try {
+            console.log ("Path login -> ",login_path)
             //const response = await fetch(`http://localhost/nekopaper/api/usuario/iniciar_sesion.php?username=${username}&password=${password}`);
-            const response = await fetch(`http://192.168.18.5/nekopaper/api/usuario/iniciar_sesion.php?username=${username}&password=${password}`);
+            //const response = await fetch(`http://192.168.18.5/nekopaper/api/usuario/iniciar_sesion.php?username=${username}&password=${password}`);
+            const response = await fetch(`${login_path}?username=${username}&password=${password}`);
             const data = await response.json();
             // Retorna los datos para ser usados en el componente
             console.log(data);
