@@ -86,6 +86,13 @@ class Usuario
 
         return $resultado;
     }
+
+    public function Borrar_Favorito($id_imagen){
+        $condiciones = "id_usuario = '$this->id_usuario' AND id_imagen = '$id_imagen' ";
+        $conexion = new Conexion();
+        $resultado = $conexion->SetDelete("Favorito", $condiciones);
+        return $resultado;
+    }
 }
 
 

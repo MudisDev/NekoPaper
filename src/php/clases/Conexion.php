@@ -90,9 +90,10 @@ class Conexion
         return $resultados;
     }
 
-    public function SetDelete(string $tabla, string $condiciones, $id)
+    public function SetDelete(string $tabla, string $condiciones/* , $id */)
     {
-        $this->sql = "DELETE FROM $tabla WHERE $condiciones'$id'";
+        /* $this->sql = "DELETE FROM $tabla WHERE $condiciones'$id'"; */
+        $this->sql = "DELETE FROM $tabla WHERE $condiciones";
         $resultado = $this->conn->query($this->sql);
 
         if ($resultado) {
