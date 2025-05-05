@@ -5,6 +5,7 @@ import { UserContext } from '../context/UserContext';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { stylesAppTheme } from '../theme/AppTheme';
+import { add_favorite, consult_favorite, consult_tags } from '../const/UrlConfig';
 
 interface TagData {
     id_tag: string,
@@ -43,7 +44,8 @@ export const Wallpaper = ({ route }) => {
 
     const Consultar_Etiquetas = async () => {
         try {
-            const url = `http://192.168.18.5/nekopaper/api/imagen/consultar_etiquetas.php?` +
+            //const url = `http://192.168.18.5/nekopaper/api/imagen/consultar_etiquetas.php?` +
+            const url = `${consult_tags}?` +
                 `id_imagen=${id}`;
 
             const response = await fetch(url);
@@ -71,7 +73,8 @@ export const Wallpaper = ({ route }) => {
 
     const Consultar_Favorito = async () => {
         try {
-            const url = `http://192.168.18.5/nekopaper/api/usuario/consultar_favorito.php?` +
+            //const url = `http://192.168.18.5/nekopaper/api/usuario/consultar_favorito.php?` +
+            const url = `${consult_favorite}?` +
                 `id_imagen=${id}` +
                 `&id_usuario=${userData?.idUser}`;
 
@@ -93,7 +96,8 @@ export const Wallpaper = ({ route }) => {
 
     const Marcar_Favorito = async () => {
         try {
-            const url = `http://192.168.18.5/nekopaper/api/usuario/marcar_favorito.php?` +
+            //const url = `http://192.168.18.5/nekopaper/api/usuario/marcar_favorito.php?` +
+            const url = `${add_favorite}?` +
                 `id_imagen=${id}` +
                 `&id_usuario=${userData?.idUser}`;
 

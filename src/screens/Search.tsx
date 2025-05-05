@@ -4,6 +4,7 @@ import { stylesAppTheme } from '../theme/AppTheme'
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { UserContext } from '../context/UserContext';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { show_images_for_tag, show_tags } from '../const/UrlConfig';
 
 interface TagsData {
   id_tag: number;
@@ -31,7 +32,8 @@ export const Search = () => {
 
 
   useEffect(() => {
-    fetch("http://192.168.18.5/nekopaper/api/lista/mostrar_etiquetas.php")
+    //fetch("http://192.168.18.5/nekopaper/api/lista/mostrar_etiquetas.php")
+    fetch(`${show_tags}`)
       .then((res) => res.json())
       .then((data) => {
         //const items = data?.items;
@@ -79,7 +81,8 @@ export const Search = () => {
   /*  useFocusEffect(
      useCallback(() => { */
   const Filtrar_Imagenes = (id_tag: number) => {
-    fetch(`http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes_por_etiqueta.php?id_etiqueta=${id_tag}`)
+    //fetch(`http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes_por_etiqueta.php?id_etiqueta=${id_tag}`)
+    fetch(`${show_images_for_tag}?id_etiqueta=${id_tag}`)
       .then((res) => res.json())
       .then((data) => {
 

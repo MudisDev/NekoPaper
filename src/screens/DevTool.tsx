@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { stylesAppTheme } from '../theme/AppTheme'
 import { NekoImageData } from './Home'
+import { associate_tags, register_image, register_tag } from '../const/UrlConfig'
 
 export const DevTool = () => {
 
@@ -92,7 +93,8 @@ export const DevTool = () => {
     for (const tag of etiquetas) {
       try {
         //const response = await fetch(`http://192.168.18.5/nekopaper/api/etiqueta/registrar_etiqueta.php?name_tag=${encodeURIComponent(tag)}&api_origen=${api_origen}`);
-        const response = await fetch(`http://192.168.18.5/nekopaper/api/etiqueta/registrar_etiqueta.php?nombre=${tag}&api_origen=${api_origen}`);
+        //const response = await fetch(`http://192.168.18.5/nekopaper/api/etiqueta/registrar_etiqueta.php?nombre=${tag}&api_origen=${api_origen}`);
+        const response = await fetch(`${register_tag}?nombre=${tag}&api_origen=${api_origen}`);
         const data = await response.json();
         console.log("Data - >", data);
 
@@ -120,7 +122,8 @@ export const DevTool = () => {
 
     for (const img of imagenes) {
       try {
-        const url = `http://192.168.18.5/nekopaper/api/imagen/registrar_imagen.php?` +
+        //const url = `http://192.168.18.5/nekopaper/api/imagen/registrar_imagen.php?` +
+        const url = `${register_image}?` +
           `id_imagen_api=${encodeURIComponent(img.id)}` +
           `&url=${encodeURIComponent(img.url)}` +
           `&clasificacion=${encodeURIComponent(img.rating)}` +
@@ -150,7 +153,8 @@ export const DevTool = () => {
     const api_origen = "NekosApi";
 
     try {
-      const url = `http://192.168.18.5/nekopaper/api/imagen/asociar_etiquetas.php?` +
+      //const url = `http://192.168.18.5/nekopaper/api/imagen/asociar_etiquetas.php?` +
+      const url = `${associate_tags}?` +
         `id_imagen_api=${idImagen}` +
         `&etiquetas=${etiquetas}` +
         `&api_origen=${api_origen}`;

@@ -6,6 +6,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import { stylesAppTheme } from '../theme/AppTheme'
 import { UserContext } from '../context/UserContext';
+import { show_favorites_images } from '../const/UrlConfig';
 
 export interface NekoImageData {
   id: number;
@@ -32,7 +33,8 @@ export const Favorites = () => {
   //useEffect(() => {
   useFocusEffect(
     useCallback(() => {
-      fetch(`http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes_favoritas.php?id_usuario=${userData?.idUser}`)
+      //fetch(`http://192.168.18.5/nekopaper/api/lista/mostrar_imagenes_favoritas.php?id_usuario=${userData?.idUser}`)
+      fetch(`${show_favorites_images}?id_usuario=${userData?.idUser}`)
         .then((res) => res.json())
         .then((data) => {
 
