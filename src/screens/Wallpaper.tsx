@@ -135,10 +135,24 @@ export const Wallpaper = ({ route }) => {
                     ))}
                 </View>
             )}
+            <View style={styles.buttonsContainer}>
+                <TouchableOpacity style={styles.button} onPress={Marcar_Favorito}>
+                    <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={25} color={"red"} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button}>
+                    <Ionicons name={"information"} size={25} color={"red"} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button}>
+                    <Ionicons name={"download"} size={25} color={"red"} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button}>
+                    <Ionicons name={"share-social"} size={25} color={"red"} />
+                </TouchableOpacity>
+                {/* <TouchableOpacity style={styles.button}>
+                    <Ionicons name={"people"} size={25} color={"red"} />
+                </TouchableOpacity> */}
 
-            <TouchableOpacity style={stylesAppTheme.button} onPress={Marcar_Favorito}>
-                <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={25} color={"red"} />
-            </TouchableOpacity>
+            </View>
 
         </ScrollView>
     );
@@ -159,4 +173,21 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         borderRadius: 8,
     },
+    buttonsContainer: {
+        //backgroundColor: 'red',
+        width: '80%',
+        flexDirection: 'row',
+        justifyContent:'center',
+        gap:15
+
+    },
+    button:{
+        width:55,
+        height: 40,
+        backgroundColor: "white",
+        borderRadius: 15,
+        alignItems:'center',
+        justifyContent: 'center',
+    }
+    
 });
