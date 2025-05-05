@@ -32,4 +32,13 @@ export const stylesAppTheme = StyleSheet.create({
         marginBottom: 30,
         textDecorationStyle: 'solid',
     },
+    pickerContainer: {
+        borderRadius: 10, // Bordes redondeados
+        borderWidth: 4, // Ancho del borde
+        //borderColor: themeData.vistas, // Color del borde
+        paddingHorizontal: 10, // Espaciado interno
+        marginVertical: 10, // Margen vertical
+        backgroundColor:"green",
+        width:200,
+    }
 });
