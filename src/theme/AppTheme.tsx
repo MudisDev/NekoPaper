@@ -4,7 +4,7 @@ export const stylesAppTheme = StyleSheet.create({
     container: {
         flex: 1,
         //backgroundColor: '#fff',
-        marginTop:20,
+        //marginTop:20,
         alignItems: 'center',
         justifyContent: 'center',
     },
