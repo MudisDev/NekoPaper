@@ -5,16 +5,16 @@ import { Favorites } from '../screens/Favorites';
 import { Search } from '../screens/Search';
 import { Settings } from '../screens/Settings';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
+import { useTheme } from '../hooks/UseTheme';
 
 const Tab = createBottomTabNavigator();
 
 export function BottomTabNavigator() {
+    const { themeData, dynamicStyles } = useTheme();
+
     return (
         <Tab.Navigator
             initialRouteName='Home'
-
-
             screenOptions={({ route }) => ({
 
                 tabBarIcon: ({ focused, color, size }) => {
@@ -38,10 +38,10 @@ export function BottomTabNavigator() {
                     // Retorna el ícono correspondiente de Ionicons
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor:  'black'/* themeData.texto */,  // Cambia el color del ícono cuando la pestaña está activa
+                tabBarActiveTintColor: themeData.texto ,  // Cambia el color del ícono cuando la pestaña está activa
                 tabBarInactiveTintColor: 'gray',
-                tabBarStyle: { backgroundColor: 'white'/* themeData.fondo */ },
-
+                tabBarStyle: { backgroundColor: themeData.fondo  },
+            
                 tabBarShowLabel: false,
 
             }
