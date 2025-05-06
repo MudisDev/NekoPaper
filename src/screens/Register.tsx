@@ -4,6 +4,7 @@ import { stylesAppTheme } from '../theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
 import { register_user } from '../const/UrlConfig'
 import { useTheme } from '../hooks/UseTheme'
+import { TextLinkComponent } from '../components/TextLinkComponent'
 
 export const Register = () => {
 
@@ -73,9 +74,8 @@ export const Register = () => {
         <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>registrar</Text>
       </TouchableOpacity>
       <Text></Text>
-      <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => navigation.navigate('LogIn')}>
-        <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>iniciar sesion</Text>
-      </TouchableOpacity>
+      <TextLinkComponent text='¿Tienes una cuenta? Inicia sesion' screenNavigation='LogIn' />
+
     </View>
   )
 }

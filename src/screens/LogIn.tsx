@@ -7,6 +7,7 @@ import { login_path } from '../const/UrlConfig'
 import { useTheme } from '../hooks/UseTheme'
 import { TextInputComponent } from '../components/TextInputComponent'
 import { ButtonComponent } from '../components/ButtonComponent'
+import { TextLinkComponent } from '../components/TextLinkComponent'
 
 export const LogIn = () => {
 
@@ -95,7 +96,7 @@ export const LogIn = () => {
 
             <ButtonComponent title='iniciar sesion' funcion={IniciarSesion} active={activeButton} />
             <Text></Text>
-            <ButtonComponent title='Registrar' funcion={() => navigation.navigate('Register')} active={true} />
+            <TextLinkComponent text='¿No tienes una cuenta? Registrate' screenNavigation='Register' />
 
         </View>
     )
