@@ -7,6 +7,7 @@ export const stylesAppTheme = StyleSheet.create({
         //marginTop:20,
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 20,
     },
     textinput: {
         backgroundColor: "white",
@@ -23,7 +24,7 @@ export const stylesAppTheme = StyleSheet.create({
         borderRadius: 20,
     },
     textButton: {
-        color: "black",
+        //color: "black",
         fontSize: 15,
         textTransform: 'uppercase',
     },

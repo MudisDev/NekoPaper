@@ -6,6 +6,7 @@ import { UserContext } from '../context/UserContext'
 import { login_path } from '../const/UrlConfig'
 import { useTheme } from '../hooks/UseTheme'
 import { TextInputComponent } from '../components/TextInputComponent'
+import { ButtonComponent } from '../components/ButtonComponent'
 
 export const LogIn = () => {
 
@@ -64,6 +65,7 @@ export const LogIn = () => {
         }
     }
 
+    const activeButton = (username && password) ? true : false;
 
     return (
         <View style={[{ alignItems: 'center', flex: 1, paddingTop: 90 }, dynamicStyles.dynamicScrollViewStyle]}>
@@ -82,13 +84,19 @@ export const LogIn = () => {
             <Text></Text>
 
             {/* <TouchableOpacity style={stylesAppTheme.button} onPress={() => navigation.navigate('BottomTabNavigator')}><Text style={stylesAppTheme.textButton}>Home</Text></TouchableOpacity> */}
-            <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={IniciarSesion}>
+            {/* <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={IniciarSesion}>
                 <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>Home</Text>
             </TouchableOpacity>
             <Text></Text>
             <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => navigation.navigate('Register')}>
                 <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>Registro</Text>
             </TouchableOpacity>
+            <Text></Text> */}
+
+            <ButtonComponent title='iniciar sesion' funcion={IniciarSesion} active={activeButton} />
+            <Text></Text>
+            <ButtonComponent title='Registrar' funcion={() => navigation.navigate('Register')} active={true} />
+
         </View>
     )
 }
