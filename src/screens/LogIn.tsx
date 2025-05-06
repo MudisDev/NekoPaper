@@ -5,6 +5,7 @@ import { stylesAppTheme } from '../theme/AppTheme'
 import { UserContext } from '../context/UserContext'
 import { login_path } from '../const/UrlConfig'
 import { useTheme } from '../hooks/UseTheme'
+import { TextInputComponent } from '../components/TextInputComponent'
 
 export const LogIn = () => {
 
@@ -69,12 +70,16 @@ export const LogIn = () => {
 
             <Text style={[stylesAppTheme.title, dynamicStyles.dynamicText]}>NekoPaper</Text>
 
-            <TextInput value={username ?? ''} onChangeText={setUsername} style={[stylesAppTheme.textinput, dynamicStyles.dynamicText, dynamicStyles.dynamicViewContainer]} placeholder='Username' placeholderTextColor={themeData.texto} />
+            {/* <TextInput value={username ?? ''} onChangeText={setUsername} style={[stylesAppTheme.textinput, dynamicStyles.dynamicText, dynamicStyles.dynamicViewContainer]} placeholder='Username' placeholderTextColor={themeData.texto} />
             <Text></Text>
             <TextInput value={password ?? ''} onChangeText={setPassword} style={[stylesAppTheme.textinput, dynamicStyles.dynamicText, dynamicStyles.dynamicViewContainer]} placeholder='Password' placeholderTextColor={themeData.texto} />
 
-            <Text></Text>
+            <Text></Text> */}
 
+            <TextInputComponent placeholderText='Username' value={username ?? ''} action={setUsername} isPassword={false} verified={false} />
+            <Text></Text>
+            <TextInputComponent placeholderText='Password' value={password ?? ''} action={setPassword} isPassword={true} verified={false} />
+            <Text></Text>
 
             {/* <TouchableOpacity style={stylesAppTheme.button} onPress={() => navigation.navigate('BottomTabNavigator')}><Text style={stylesAppTheme.textButton}>Home</Text></TouchableOpacity> */}
             <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={IniciarSesion}>
