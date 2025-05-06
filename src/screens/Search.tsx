@@ -5,6 +5,8 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { UserContext } from '../context/UserContext';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { show_images_for_tag, show_tags } from '../const/UrlConfig';
+import { dynamicStylesAppTheme } from '../theme/DynamicAppTheme';
+import { useTheme } from '../hooks/UseTheme';
 
 interface TagsData {
   id_tag: number;
@@ -29,6 +31,8 @@ export const Search = () => {
   const [dataArray, setDataArray] = useState<TagsData[] | null>(null);
   const [imageArray, setImageArray] = useState<NekoImageData[] | null>(null);
   const { userData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
+  const {themeData, dynamicStyles } = useTheme();
+
 
 
   useEffect(() => {
@@ -133,26 +137,26 @@ export const Search = () => {
   return (
 
 
-    <View style={stylesAppTheme.container}>
+    <View style={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle,]}>
       <FlatList
         data={imageArray}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         numColumns={2}
 
-        //contentContainerStyle={[dynamicStyles.dynamicMainContainer, stylesAppTheme.mainContainer,]}
-        //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]} // Estilo para englobar las columnas
+        //contentContainerStyle={[dynamicStyles.dynamicScrollViewStyle, /* stylesAppTheme.mainContainer, */]}
+        //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, /* stylesAppTheme.viewContainer */]} // Estilo para englobar las columnas
 
 
         ListHeaderComponent={() => (
 
-          <View style={[stylesAppTheme.container]}>
+          <View style={[stylesAppTheme.container, /* {backgroundColor: "red"} */]}>
             <View style={{ padding: 10 }}>
 
-              <View style={styles.tagContainer}>
+              <View style={[styles.tagContainer, /* dynamicStyles.dynamicMainContainer */]}>
                 {dataArray?.map((tag) => (
                   <TouchableOpacity key={tag.id_tag} onPress={() => Filtrar_Imagenes(tag.id_tag)}>
-                    <Text style={styles.tagText}>{tag.name_tag}</Text>
+                    <Text style={[styles.tagText, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]}>{tag.name_tag}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
@@ -179,7 +183,7 @@ const styles = StyleSheet.create({
   tagText: {
     margin: 4,
     fontSize: 14,
-    backgroundColor: '#e3e3e3',
+    //backgroundColor: '#e3e3e3',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,

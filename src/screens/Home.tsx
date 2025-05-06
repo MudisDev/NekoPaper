@@ -7,6 +7,8 @@ import { NekosAPI } from 'nekosapi';
 import { useNavigation } from '@react-navigation/native';
 import { stylesAppTheme } from '../theme/AppTheme';
 import { show_images } from '../const/UrlConfig';
+import { useTheme } from '../hooks/UseTheme';
+
 
 /* export interface NekoImageData {
     id: number;
@@ -37,6 +39,7 @@ export const Home = () => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
+    const { themeData, dynamicStyles } = useTheme();
 
 
     const navigation = useNavigation();
@@ -141,14 +144,14 @@ export const Home = () => {
     );
 
     return (
-        <View style={stylesAppTheme.container}>
+        <View style={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle,]}>
             <FlatList
                 data={dataArray}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
                 numColumns={2}
 
-                //contentContainerStyle={[dynamicStyles.dynamicMainContainer, stylesAppTheme.mainContainer,]}
+                //contentContainerStyle={[dynamicStyles.dynamicMainContainer, /* stylesAppTheme.mainContainer, */]}
                 //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]} // Estilo para englobar las columnas
                 /* ListHeaderComponent={() => (
                     <View>

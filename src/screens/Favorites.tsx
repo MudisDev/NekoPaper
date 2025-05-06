@@ -7,6 +7,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { stylesAppTheme } from '../theme/AppTheme'
 import { UserContext } from '../context/UserContext';
 import { show_favorites_images } from '../const/UrlConfig';
+import { useTheme } from '../hooks/UseTheme';
 
 export interface NekoImageData {
   id: number;
@@ -26,6 +27,7 @@ export const Favorites = () => {
 
   const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
   const { userData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
+  const {themeData, dynamicStyles } = useTheme();
 
 
   const navigation = useNavigation();
@@ -82,15 +84,15 @@ export const Favorites = () => {
   );
 
   return (
-    <View style={stylesAppTheme.container}>
+    <View style={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle]}>
       <FlatList
         data={dataArray}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         numColumns={2}
 
-        //contentContainerStyle={[dynamicStyles.dynamicMainContainer, stylesAppTheme.mainContainer,]}
-        //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]} // Estilo para englobar las columnas
+        //contentContainerStyle={[dynamicStyles.dynamicMainContainer, /* stylesAppTheme.mainContainer, */]}
+        //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, /* stylesAppTheme.viewContainer */]} // Estilo para englobar las columnas
         /* ListHeaderComponent={() => (
             <View>
                 {<TitleComponent title="Anime Directory" />}

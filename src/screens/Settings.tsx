@@ -4,7 +4,7 @@ import { stylesAppTheme } from '../theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../context/UserContext'
 import { dynamicStylesAppTheme } from '../theme/DynamicAppTheme'
-import { ThemeContext ,ThemeData} from '../context/ThemeContext'
+import { ThemeContext, ThemeData } from '../context/ThemeContext'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ColorPaletteTheme } from '../theme/ColorPaletteTheme'
@@ -61,12 +61,16 @@ export const Settings = () => {
 
 
   return (
-    <View style={stylesAppTheme.container}>
-      <Text>Settings Screen Bv</Text>
+    <View style={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle]}>
+      <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>Settings Screen Bv</Text>
       <Text></Text>
-      <TouchableOpacity style={stylesAppTheme.button} onPress={() => navigation.navigate("DevTool")}><Text>DevTool Bv</Text></TouchableOpacity>
+      <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => navigation.navigate("DevTool")}>
+        <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]} >DevTool Bv</Text>
+        </TouchableOpacity>
       <Text></Text>
-      <TouchableOpacity style={stylesAppTheme.button} onPress={() => { setUserData(null); navigation.navigate('LogIn'); }}><Text style={stylesAppTheme.textButton}>Cerrar Sesion</Text></TouchableOpacity>
+      <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => { setUserData(null); navigation.navigate('LogIn'); }}>
+        <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>Cerrar Sesion</Text>
+        </TouchableOpacity>
 
       <Text></Text>
       <Text></Text>

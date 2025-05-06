@@ -6,6 +6,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { stylesAppTheme } from '../theme/AppTheme';
 import { add_favorite, consult_favorite, consult_tags, delete_favorite } from '../const/UrlConfig';
+import { dynamicStylesAppTheme } from '../theme/DynamicAppTheme';
+import { useTheme } from '../hooks/UseTheme';
+
 
 interface TagData {
     id_tag: string,
@@ -20,6 +23,9 @@ export const Wallpaper = ({ route }) => {
     const { width, height } = Dimensions.get('window');
     const { url, artist_name, id } = route.params;
     const { userData, } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
+
+    const { themeData, dynamicStyles } = useTheme();
+
 
     const [isFavorite, setIsFavorite] = useState<boolean>();
 
@@ -44,7 +50,7 @@ export const Wallpaper = ({ route }) => {
 
     useEffect(() => {
         Consultar_Favorito();
-    },[isFavorite])
+    }, [isFavorite])
 
     const Consultar_Etiquetas = async () => {
         try {
@@ -131,7 +137,8 @@ export const Wallpaper = ({ route }) => {
     }
 
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', paddingTop: 40 }}>
+        //<ScrollView contentContainerStyle={[{ flexGrow: 1, alignItems: 'center', paddingTop: 40 }, dynamicStyles.dynamicScrollViewStyle]}>
+        <ScrollView style={dynamicStyles.dynamicScrollViewStyle} /* style={{marginTop:200}} */>
 
             {image && (
                 <Image
@@ -149,7 +156,7 @@ export const Wallpaper = ({ route }) => {
             {tags && Array.isArray(tags) && (
                 <View style={styles.tagContainer}>
                     {tags.map((tag: TagData, index: number) => (
-                        <Text key={tag.id_tag} style={styles.tagText}>#{tag.name_tag}</Text>
+                        <Text key={tag.id_tag} style={[styles.tagText, dynamicStyles.dynamicText,dynamicStyles.dynamicViewContainer]}>#{tag.name_tag}</Text>
                     ))}
                 </View>
             )}
@@ -158,23 +165,23 @@ export const Wallpaper = ({ route }) => {
                     <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={25} color={"red"} />
                 </TouchableOpacity> */}
                 {isFavorite ?
-                    (<TouchableOpacity style={styles.button} onPress={Borrar_Favorito}>
-                        <Ionicons name={"heart"} size={25} color={"red"} />
+                    (<TouchableOpacity style={[styles.button, dynamicStyles.dynamicViewContainer]} onPress={Borrar_Favorito}>
+                        <Ionicons name={"heart"} size={25} color={themeData.texto} />
                     </TouchableOpacity>)
                     :
-                    (<TouchableOpacity style={styles.button} onPress={Marcar_Favorito}>
-                        <Ionicons name={"heart-outline"} size={25} color={"red"} />
+                    (<TouchableOpacity style={[styles.button, dynamicStyles.dynamicViewContainer]}  onPress={Marcar_Favorito}>
+                        <Ionicons name={"heart-outline"} size={25} color={themeData.texto} />
                     </TouchableOpacity>)
                 }
 
-                <TouchableOpacity style={styles.button}>
-                    <Ionicons name={"information"} size={25} color={"red"} />
+                <TouchableOpacity style={[styles.button, dynamicStyles.dynamicViewContainer]} >
+                    <Ionicons name={"information"} size={25} color={themeData.texto} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
-                    <Ionicons name={"download"} size={25} color={"red"} />
+                <TouchableOpacity style={[styles.button, dynamicStyles.dynamicViewContainer]} >
+                    <Ionicons name={"download"} size={25} color={themeData.texto} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
-                    <Ionicons name={"share-social"} size={25} color={"red"} />
+                <TouchableOpacity style={[styles.button, dynamicStyles.dynamicViewContainer]} >
+                    <Ionicons name={"share-social"} size={25} color={themeData.texto} />
                 </TouchableOpacity>
                 {/* <TouchableOpacity style={styles.button}>
                     <Ionicons name={"people"} size={25} color={"red"} />
@@ -196,7 +203,7 @@ const styles = StyleSheet.create({
     tagText: {
         margin: 4,
         fontSize: 14,
-        backgroundColor: '#e3e3e3',
+        //backgroundColor: '#e3e3e3',
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 8,
@@ -206,6 +213,8 @@ const styles = StyleSheet.create({
         width: '80%',
         flexDirection: 'row',
         justifyContent: 'center',
+        //alignItems:'center',
+        alignSelf:'center',
         gap: 15
 
     },

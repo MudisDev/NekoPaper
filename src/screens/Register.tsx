@@ -3,11 +3,12 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { stylesAppTheme } from '../theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
 import { register_user } from '../const/UrlConfig'
-
+import { useTheme } from '../hooks/UseTheme'
 
 export const Register = () => {
 
   const navigation = useNavigation();
+  const { themeData, dynamicStyles } = useTheme();
 
 
 
@@ -48,29 +49,33 @@ export const Register = () => {
   }
 
   return (
-    <View style={{ alignItems: 'center', flex: 1, marginTop: 40 }}>
+    <View style={[{ alignItems: 'center', flex: 1, paddingTop: 40 }, dynamicStyles.dynamicScrollViewStyle]}>
 
-      <Text style={stylesAppTheme.title}>NekoPaper</Text>
+      <Text style={[stylesAppTheme.title, dynamicStyles.dynamicText]}>NekoPaper</Text>
 
-      <TextInput /* value={username ?? ''} onChangeText={setUsername}  */ style={stylesAppTheme.textinput} placeholder='Nombre' placeholderTextColor={"black"} />
+      <TextInput /* value={username ?? ''} onChangeText={setUsername}  */ style={[stylesAppTheme.textinput, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]} placeholderTextColor={themeData.texto} placeholder='Nombre' />
       <Text></Text>
-      <TextInput /* value={username ?? ''} onChangeText={setUsername}  */ style={stylesAppTheme.textinput} placeholder='Username' placeholderTextColor={"black"} />
+      <TextInput /* value={username ?? ''} onChangeText={setUsername}  */ style={[stylesAppTheme.textinput, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]} placeholderTextColor={themeData.texto} placeholder='Username' />
       <Text></Text>
-      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={stylesAppTheme.textinput} placeholder='Password' placeholderTextColor={"black"} />
+      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={[stylesAppTheme.textinput, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]} placeholderTextColor={themeData.texto} placeholder='Password' />
       <Text></Text>
-      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={stylesAppTheme.textinput} placeholder='Email' placeholderTextColor={"black"} />
+      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={[stylesAppTheme.textinput, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]} placeholderTextColor={themeData.texto} placeholder='Email' />
       <Text></Text>
-      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={stylesAppTheme.textinput} placeholder='Genero' placeholderTextColor={"black"} />
+      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={[stylesAppTheme.textinput, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]} placeholderTextColor={themeData.texto} placeholder='Genero' />
       <Text></Text>
-      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={stylesAppTheme.textinput} placeholder='Telefono' placeholderTextColor={"black"} />
+      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={[stylesAppTheme.textinput, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]} placeholderTextColor={themeData.texto} placeholder='Telefono' />
       <Text></Text>
-      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={stylesAppTheme.textinput} placeholder='Foto Perfil' placeholderTextColor={"black"} />
+      <TextInput /* value={password ?? ''} onChangeText={setPassword}  */ style={[stylesAppTheme.textinput, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]} placeholderTextColor={themeData.texto} placeholder='Foto Perfil' />
       <Text></Text>
 
       {/* <TouchableOpacity style={stylesAppTheme.button} onPress={() => navigation.navigate('BottomTabNavigator')}><Text style={stylesAppTheme.textButton}>Home</Text></TouchableOpacity> */}
-      <TouchableOpacity style={stylesAppTheme.button} onPress={Registrar} ><Text style={stylesAppTheme.textButton}>registrar</Text></TouchableOpacity>
+      <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={Registrar} >
+        <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>registrar</Text>
+      </TouchableOpacity>
       <Text></Text>
-      <TouchableOpacity style={stylesAppTheme.button} onPress={() => navigation.navigate('LogIn')}><Text style={stylesAppTheme.textButton}>iniciar sesion</Text></TouchableOpacity>
+      <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => navigation.navigate('LogIn')}>
+        <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>iniciar sesion</Text>
+      </TouchableOpacity>
     </View>
   )
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import { stylesAppTheme } from '../theme/AppTheme'
 import { NekoImageData } from './Home'
 import { associate_tags, register_image, register_tag } from '../const/UrlConfig'
+import { useTheme } from '../hooks/UseTheme'
 
 export const DevTool = () => {
 
@@ -18,6 +19,8 @@ export const DevTool = () => {
   const [limit, setLimit] = useState<string | null>(null);
   /* const [offset, setOffset] = useState<number | null>(null);
   const [count, setCount] = useState<number | null>(null); */
+  const { themeData, dynamicStyles } = useTheme();
+
 
 
   const ConsumirApi = async () => {
@@ -172,17 +175,20 @@ export const DevTool = () => {
 
 
   return (
-    <View style={stylesAppTheme.container}>
-      <Text>DevTool Screen Bv</Text>
-      <Text></Text>
-      <TextInput style={stylesAppTheme.textinput} placeholder='tags' value={tags ?? ''} onChangeText={setTags}/* value={tags ?? ''} onChangeText={setTags} */></TextInput>
-      <Text></Text>
-      <TextInput style={stylesAppTheme.textinput} placeholder='offset' value={offset ?? ''} onChangeText={setOffset} /* value={offset ?? ''} onChangeText={setOffset} */></TextInput>
-      <Text></Text>
-      <TextInput style={stylesAppTheme.textinput} placeholder='limit' value={limit ?? ''} onChangeText={setLimit} /* value={offset ?? ''} onChangeText={setOffset} */></TextInput>
-      <Text></Text>
-      <TouchableOpacity style={stylesAppTheme.button} onPress={ConsumirApi}><Text>Consumir API</Text></TouchableOpacity>
+    <ScrollView contentContainerStyle={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle]} /* style={{marginTop:200}} */>
 
-    </View>
+      <Text style={dynamicStyles.dynamicText}>DevTool Screen Bv</Text>
+      <Text></Text>
+      <TextInput style={[stylesAppTheme.textinput, dynamicStyles.dynamicText, dynamicStyles.dynamicViewContainer]} placeholderTextColor={themeData.texto} placeholder='tags' value={tags ?? ''} onChangeText={setTags}/* value={tags ?? ''} onChangeText={setTags} */></TextInput>
+      <Text></Text>
+      <TextInput style={[stylesAppTheme.textinput, dynamicStyles.dynamicText, dynamicStyles.dynamicViewContainer]} placeholderTextColor={themeData.texto} placeholder='offset' value={offset ?? ''} onChangeText={setOffset} /* value={offset ?? ''} onChangeText={setOffset} */></TextInput>
+      <Text></Text>
+      <TextInput style={[stylesAppTheme.textinput, dynamicStyles.dynamicText, dynamicStyles.dynamicViewContainer]} placeholderTextColor={themeData.texto} placeholder='limit' value={limit ?? ''} onChangeText={setLimit} /* value={offset ?? ''} onChangeText={setOffset} */></TextInput>
+      <Text></Text>
+      <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={ConsumirApi}>
+        <Text style={dynamicStyles.dynamicText}>Consumir API</Text>
+      </TouchableOpacity>
+
+    </ScrollView>
   )
 }
