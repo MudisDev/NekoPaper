@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState, useContext, use } from 'react'
+import React, { useState, useContext, use, useEffect } from 'react'
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
 import { stylesAppTheme } from '../theme/AppTheme'
 import { UserContext } from '../context/UserContext'
@@ -8,6 +8,8 @@ import { useTheme } from '../hooks/UseTheme'
 import { TextInputComponent } from '../components/TextInputComponent'
 import { ButtonComponent } from '../components/ButtonComponent'
 import { TextLinkComponent } from '../components/TextLinkComponent'
+import { ThemeContext } from '../context/ThemeContext'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const LogIn = () => {
 
@@ -19,6 +21,28 @@ export const LogIn = () => {
 
     const { themeData, dynamicStyles } = useTheme();
 
+    const context = useContext(ThemeContext); // Obtiene el contexto
+    //const themeData = context?.themeData; // Obtiene themeData del contexto
+    const setThemeData = context?.setThemeData;
+   
+    if (!themeData) {
+        return null; // Puedes manejar la carga o estado por defecto aquí
+      }
+      // Genera los estilos dinámicos pasando themeData
+      //const dynamicStyles = dynamicStylesAppTheme(themeData);
+    
+      useEffect(() => {
+        // Carga el tema al iniciar la app
+        const loadStoredTheme = async () => {
+          const storedTheme = await AsyncStorage.getItem("themeColors");
+          if (storedTheme) {
+            //setTheme(JSON.parse(storedTheme));
+            setThemeData(JSON.parse(storedTheme));
+            console.log("Theme loaded!");
+          }
+        };
+        loadStoredTheme();
+      }, []);
 
     const IniciarSesion = async () => {
         try {
