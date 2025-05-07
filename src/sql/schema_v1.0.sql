@@ -120,3 +120,32 @@ DROP VIEW vista_mostrar_imagen_por_etiqueta;
 DROP VIEW vista_favorito;
 
 SELECT * FROM etiqueta;
+
+
+CREATE VIEW Vista_Imagenes_Sin_Negativas AS
+SELECT
+    i.*
+FROM imagen i
+WHERE i.clasificacion = 'safe'
+AND i.id_imagen NOT IN (
+    SELECT te.id_imagen
+    FROM tiene_etiqueta te
+    JOIN etiqueta e ON te.id_etiqueta = e.id_etiqueta
+    WHERE e.lista_negra = 1
+);
+
+CREATE VIEW Vista_Mostrar_Imagen_Por_Etiqueta_Segura AS
+SELECT
+    te.id_imagen,
+    te.id_etiqueta,
+    i.url,
+    i.id_imagen AS id_imagen_real,
+    i.clasificacion,
+    i.artista,
+    i.api_origen,
+    i.id_imagen_api,
+    i.url_fuente,
+    i.fecha_insercion,
+    i.fecha_actualizacion
+FROM tiene_etiqueta te
+JOIN Vista_Imagenes_Sin_Negativas i ON te.id_imagen = i.id_imagen;
