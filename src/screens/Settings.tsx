@@ -9,13 +9,14 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ColorPaletteTheme } from '../theme/ColorPaletteTheme'
 import RNPickerSelect from 'react-native-picker-select';
-
+import { ButtonComponent } from '../components/ButtonComponent'
 
 
 export const Settings = () => {
   const navigation = useNavigation();
   const { setUserData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
 
+  const noFunction = () => { }
 
 
 
@@ -64,13 +65,20 @@ export const Settings = () => {
     <View style={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle]}>
       <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>Settings Screen Bv</Text>
       <Text></Text>
-      <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => navigation.navigate("DevTool")}>
+      {/* <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => navigation.navigate("DevTool")}>
         <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]} >DevTool Bv</Text>
-        </TouchableOpacity>
+      </TouchableOpacity> */}
+      <ButtonComponent title='DevTool Bv' funcion={() => navigation.navigate("DevTool")} active={true} />
+
       <Text></Text>
-      <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => { setUserData(null); navigation.navigate('LogIn'); }}>
+      <ButtonComponent title='Cerrar sesion' funcion={() => { setUserData(null); navigation.navigate('LogIn'); }} active={true} />
+
+      {/* <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => { setUserData(null); navigation.navigate('LogIn'); }}>
         <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>Cerrar Sesion</Text>
-        </TouchableOpacity>
+      </TouchableOpacity> */}
+      <Text></Text>
+
+      <ButtonComponent title='eliminar cuenta' funcion={noFunction} active={false} />
 
       <Text></Text>
       <Text></Text>
