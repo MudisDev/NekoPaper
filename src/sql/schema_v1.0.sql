@@ -18,6 +18,10 @@ CREATE TABLE Usuario (
     foto_perfil TEXT DEFAULT NULL
 );
 
+ALTER TABLE Usuario ADD UNIQUE (telefono);
+
+ALTER TABLE Usuario DROP INDEX telefono;
+
 CREATE TABLE Etiqueta (
     id_etiqueta INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,

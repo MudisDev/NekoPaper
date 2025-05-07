@@ -39,7 +39,23 @@ export const stylesAppTheme = StyleSheet.create({
         //borderColor: themeData.vistas, // Color del borde
         paddingHorizontal: 10, // Espaciado interno
         marginVertical: 10, // Margen vertical
-        backgroundColor:"green",
-        width:200,
-    }
+        backgroundColor: "green",
+        width: 200,
+    },
+
+    buttonLink: {
+        alignItems: "center",
+        height: 40,
+        justifyContent: "center",
+        width: 'auto',
+        paddingHorizontal: 20,
+        alignSelf: "center",
+        marginBottom: 5,
+    },
+    textLink: {
+        fontSize: 17,
+        fontWeight: "bold",
+        textDecorationLine: "underline",
+
+    },
 });

@@ -1,5 +1,7 @@
 <?php
 
+use Dba\Connection;
+
 require_once 'Conexion.php';
 class Usuario
 {
@@ -35,6 +37,16 @@ class Usuario
 
     public function RegistrarUsuario()
     {
+        $username_existe = $this->Username_Existe();
+        if (!isset($username_existe['Error']))
+            return ["Error" => "Username ya existe."];
+        $email_existe = $this->Email_Existe();
+        if (!isset($email_existe['Error']))
+            return ["Error" => "Email ya existe."];
+        $telefono_existe = $this->Telefono_Existe();
+        if (!isset($telefono_existe['Error']))
+            return ["Error" => "Telefono ya existe."];
+
         $conexion = new Conexion();
         $resultado = $conexion->SetInsert(
             "Usuario",
@@ -87,10 +99,39 @@ class Usuario
         return $resultado;
     }
 
-    public function Borrar_Favorito($id_imagen){
+    public function Borrar_Favorito($id_imagen)
+    {
         $condiciones = "id_usuario = '$this->id_usuario' AND id_imagen = '$id_imagen' ";
         $conexion = new Conexion();
         $resultado = $conexion->SetDelete("Favorito", $condiciones);
+        return $resultado;
+    }
+
+    public function Username_Existe()
+    {
+        $condiciones = "username = '$this->username'";
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Usuario", ["*"], $condiciones);
+        $conexion->cerrarConexion();
+
+        return $resultado;
+    }
+    public function Email_Existe()
+    {
+        $condiciones = "email = '$this->email'";
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Usuario", ["*"], $condiciones);
+        $conexion->cerrarConexion();
+
+        return $resultado;
+    }
+    public function Telefono_Existe()
+    {
+        $condiciones = "telefono = '$this->telefono'";
+        $conexion = new Conexion();
+        $resultado = $conexion->SetSelect("Usuario", ["*"], $condiciones);
+        $conexion->cerrarConexion();
+
         return $resultado;
     }
 }
