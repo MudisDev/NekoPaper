@@ -38,7 +38,7 @@ class Conexion
         return "Conexión cerrada.";
     }
 
-    public function SetSelect(string $tabla, array $columnas = ['*'], string $condiciones = '')
+    public function SetSelect(string $tabla, array $columnas = ['*'], string $condiciones = '', bool $is_login = false, string $password = '')
     {
         $cols = implode(", ", $columnas);
         $this->sql = "SELECT $cols FROM $tabla";
@@ -54,8 +54,19 @@ class Conexion
 
         if ($resultado && $resultado->num_rows > 0) {
             while ($fila = $resultado->fetch_assoc()) {
-                $coincidenciaBusqueda = true;
-                $resultados[] = $fila; // Cada fila es un diccionario (asociativo)
+
+                if ($is_login) {
+                    if ($password == $fila['password']) {
+                        $coincidenciaBusqueda = true;
+                        $resultados[] = $fila; // Cada fila es un diccionario (asociativo)
+                        break;
+                    }
+                } else {
+                    $coincidenciaBusqueda = true;
+                    $resultados[] = $fila; // Cada fila es un diccionario (asociativo)
+                }
+
+
             }
         }
 
@@ -66,7 +77,7 @@ class Conexion
         }
     }
 
-    public function IniciarSesion(string $tabla, array $columnas = ['*'], $columna_usuario, $username, $password)
+    /* public function IniciarSesion(string $tabla, array $columnas = ['*'], $columna_usuario, $username, $password)
     {
         $cols = implode(", ", $columnas);
         $username = $this->conn->real_escape_string($username); // para prevenir inyecciones básicas
@@ -88,7 +99,7 @@ class Conexion
                 return ["Error" => "Credenciales incorrectas"];
         }
         return $resultados;
-    }
+    } */
 
     public function SetDelete(string $tabla, string $condiciones/* , $id */)
     {
