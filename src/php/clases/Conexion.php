@@ -165,9 +165,30 @@ class Conexion
         }
     }
 
-    public function SetActualizarRelacion($tabla, $id_primario, $id_foraneo, $columna_actualizar, $condiciones)
+    /* public function SetActualizarRelacion($tabla, $id_primario, $id_foraneo, $columna_actualizar, $condiciones)
     {
         $this->sql = "UPDATE $tabla SET $columna_actualizar = '$id_foraneo' WHERE $condiciones '$id_primario'";
+
+        $resultado = $this->conn->query($this->sql);
+
+        if ($resultado) {
+            if ($this->conn->affected_rows > 0) {
+                return ["Success" => "Update exitoso en tabla $tabla."];
+            } else {
+                return ["Warning" => "La consulta se ejecutó, pero no se actualizo ninguna fila en $tabla."];
+            }
+        } else {
+            return [
+                "error" => "Update fallido en tabla $tabla.",
+                "sql" => $this->sql,
+                "mysql_error" => $this->conn->error
+            ];
+        }
+
+    } */
+    public function SetUpdate($tabla, $columnas_actualizar, $condiciones, )
+    {
+        $this->sql = "UPDATE $tabla SET $columnas_actualizar WHERE $condiciones";
 
         $resultado = $this->conn->query($this->sql);
 

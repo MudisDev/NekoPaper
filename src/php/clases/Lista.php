@@ -16,6 +16,7 @@ class Lista
         $conexion = new Conexion();
         $resultado = $conexion->SetSelect("Imagen", ["*"], $condiciones);
         //$resultado = $conexion->SetSelect("Vista_Imagenes_Sin_Negativas", ["*"], $condiciones);
+        //$resultado = $conexion->SetSelect("Vista_Imagenes_Sin_Negativas", ["*"]);
         $this->Set_Lista($resultado);
     }
 
@@ -33,6 +34,7 @@ class Lista
         $conexion = new Conexion();
         $resultado = $conexion->SetSelect("Vista_Mostrar_Imagen_Por_Etiqueta", ["*"], $condicion);
         //$resultado = $conexion->SetSelect("Vista_Mostrar_Imagen_Por_Etiqueta_Segura", ["*"], $condicion);
+        //$resultado = $conexion->SetSelect("Vista_Mostrar_Imagen_Por_Etiqueta_Segura", ["*"]);
         $this->Set_Lista($resultado);
     }
 
