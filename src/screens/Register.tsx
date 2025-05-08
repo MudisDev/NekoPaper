@@ -37,7 +37,7 @@ export const Register = () => {
     setPhoneIcon(RegexFormValidator(phone, 'verifyPhone'));
   }, [name, username, password, email, phone]);
 
-  const activeButton = (NameIcon && PasswordIcon && UsernameIcon && EmailIcon && PhoneIcon) ? true : false;
+  const activeButton = (NameIcon && PasswordIcon && UsernameIcon && EmailIcon /* && PhoneIcon */) ? true : false;
 
 
   const Registrar = async () => {
@@ -95,8 +95,8 @@ export const Register = () => {
       <Text></Text>
       <TextInputComponent value={gender} action={setGender} placeholderText='Gender' verified={false} isPassword={false} />
       <Text></Text>
-      <TextInputComponent value={phone} action={setPhone} placeholderText='Phone' verified={PhoneIcon} isPassword={false} />
-      <Text></Text>
+      {/* <TextInputComponent value={phone} action={setPhone} placeholderText='Phone' verified={PhoneIcon} isPassword={false} />
+      <Text></Text> */}
 
       {/* <TouchableOpacity style={stylesAppTheme.button} onPress={() => navigation.navigate('BottomTabNavigator')}><Text style={stylesAppTheme.textButton}>Home</Text></TouchableOpacity> */}
       {/* <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={Registrar}  >

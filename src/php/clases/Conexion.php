@@ -1,4 +1,6 @@
 <?php
+require_once  __DIR__ . '/../config/credentials.php';
+
 class Conexion
 {
     private $server;
@@ -11,10 +13,10 @@ class Conexion
 
     public function __construct(/* $server, $user, $passwordb, $bdname */)
     {
-        $this->server = 'localhost';
-        $this->user = 'root';
-        $this->passwordb = 'Kazooie10';
-        $this->bdname = 'nekopaper';
+        $this->server = DB_SERVER;
+        $this->user = DB_USER;
+        $this->passwordb = DB_PASSWORD;
+        $this->bdname = DB_NAME;
 
         // Intentar conexión a la BD
         $this->conn = new mysqli($this->server, $this->user, $this->passwordb, $this->bdname);
