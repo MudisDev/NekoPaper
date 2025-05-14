@@ -14,7 +14,8 @@ import { ButtonComponent } from '../components/ButtonComponent'
 
 export const Settings = () => {
   const navigation = useNavigation();
-  const { setUserData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
+  const { userData, setUserData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
+
 
   const noFunction = () => { }
 
@@ -68,7 +69,14 @@ export const Settings = () => {
       {/* <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => navigation.navigate("DevTool")}>
         <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]} >DevTool Bv</Text>
       </TouchableOpacity> */}
-      <ButtonComponent title='DevTool Bv' funcion={() => navigation.navigate("DevTool")} active={true} />
+
+      {(userData?.idUser == 1) ?
+        <ButtonComponent title='DevTool Bv' funcion={() => navigation.navigate("DevTool")} active={true} />
+        :
+        <ButtonComponent title='DevTool Bv' funcion={() => navigation.navigate("DevTool")} active={false} />
+      }
+
+      
 
       <Text></Text>
       <ButtonComponent title='Cerrar sesion' funcion={() => { setUserData(null); navigation.navigate('LogIn'); }} active={true} />
