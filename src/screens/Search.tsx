@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, TextComponent } from 'react-native'
 import { stylesAppTheme } from '../theme/AppTheme'
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { UserContext } from '../context/UserContext';
@@ -7,6 +7,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { show_images_for_tag, show_tags } from '../const/UrlConfig';
 import { dynamicStylesAppTheme } from '../theme/DynamicAppTheme';
 import { useTheme } from '../hooks/UseTheme';
+import { ButtonComponent } from '../components/ButtonComponent';
 
 interface TagsData {
   id_tag: number;
@@ -31,7 +32,8 @@ export const Search = () => {
   const [dataArray, setDataArray] = useState<TagsData[] | null>(null);
   const [imageArray, setImageArray] = useState<NekoImageData[] | null>(null);
   const { userData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
-  const {themeData, dynamicStyles } = useTheme();
+  const { themeData, dynamicStyles } = useTheme();
+  const [showTags, setShowTags] = useState(false);
 
 
 
@@ -151,14 +153,33 @@ export const Search = () => {
         ListHeaderComponent={() => (
 
           <View style={[stylesAppTheme.container, /* {backgroundColor: "red"} */]}>
-            <View style={{ padding: 10 }}>
+            <View style={{ /* padding: 10 */ }}>
+
+             
+
 
               <View style={[styles.tagContainer, /* dynamicStyles.dynamicMainContainer */]}>
-                {dataArray?.map((tag) => (
-                  <TouchableOpacity key={tag.id_tag} onPress={() => Filtrar_Imagenes(tag.id_tag)}>
-                    <Text style={[styles.tagText, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]}>{tag.name_tag}</Text>
-                  </TouchableOpacity>
-                ))}
+                {(showTags == false) ?
+                  (<ButtonComponent title='mostrar etiquetas' active={true} funcion={() => { setShowTags(true) }} />) :
+
+                  (
+                    <>
+                      <ButtonComponent title='ocultar etiquetas' active={true} funcion={() => { setShowTags(false) }} />
+                      <Text></Text>
+                      <View style={[styles.tagContainer, /* dynamicStyles.dynamicMainContainer */]}>
+                        {dataArray?.map((tag) => (
+                          <TouchableOpacity key={tag.id_tag} onPress={() => Filtrar_Imagenes(tag.id_tag)}>
+                            <Text style={[styles.tagText, dynamicStyles.dynamicViewContainer, dynamicStyles.dynamicText]}>{tag.name_tag}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    </>)
+
+                }
+
+
+
+
               </View>
             </View>
           </View>
