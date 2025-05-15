@@ -136,6 +136,14 @@ class Usuario
 
         return $resultado;
     }
+
+    public function Eliminar_Cuenta()
+    {
+        $condiciones = "id_usuario = '$this->id_usuario'";
+        $conexion = new Conexion();
+        $resultado = $conexion->SetDelete("Usuario", $condiciones);
+        return $resultado;
+    }
 }
 
 

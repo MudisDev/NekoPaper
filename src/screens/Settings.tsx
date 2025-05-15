@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ColorPaletteTheme } from '../theme/ColorPaletteTheme'
 import RNPickerSelect from 'react-native-picker-select';
 import { ButtonComponent } from '../components/ButtonComponent'
-
+import { delete_profile } from '../const/UrlConfig'
 
 export const Settings = () => {
   const navigation = useNavigation();
@@ -59,7 +59,35 @@ export const Settings = () => {
     }
   };
 
+  const DeleteProfile = async () => {
+    try {
+      //const response = await fetch(`http://localhost/nekopaper/api/usuario/iniciar_sesion.php?username=${username}&password=${password}`);
+      //const response = await fetch(`http://192.168.18.5/nekopaper/api/usuario/iniciar_sesion.php?username=${username}&password=${password}`);
+      const response = await fetch(`${delete_profile}?id_usuario=${userData?.idUser}`);
+      const data = await response.json();
+      // Retorna los datos para ser usados en el componente
+      console.log(data);
 
+      const user = data[0];
+      console.log(`user -> ${user}`);
+      console.log(`userIsArray -> ${Array.isArray(user)}`);
+
+      if (data.Error) {
+        console.log("Error al eliminar la cuenta");
+      }
+      else if (data.Success) {
+        navigation.navigate("LogIn");
+        console.log("Success, cuenta eliminada correctamente");
+      }
+      else if (data.Warning) {
+        console.log("Warning, no se elimino la cuenta");
+      }
+
+
+    } catch (e) {
+      console.error(`error: ${e}`);
+    }
+  }
 
 
   return (
@@ -76,7 +104,7 @@ export const Settings = () => {
         <ButtonComponent title='DevTool Bv' funcion={() => navigation.navigate("DevTool")} active={false} />
       }
 
-      
+
 
       <Text></Text>
       <ButtonComponent title='Cerrar sesion' funcion={() => { setUserData(null); navigation.navigate('LogIn'); }} active={true} />
@@ -86,7 +114,7 @@ export const Settings = () => {
       </TouchableOpacity> */}
       <Text></Text>
 
-      <ButtonComponent title='eliminar cuenta' funcion={noFunction} active={false} />
+      <ButtonComponent title='eliminar cuenta' funcion={DeleteProfile} active={true} />
 
       <Text></Text>
       <Text></Text>
