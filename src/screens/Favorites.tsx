@@ -27,7 +27,9 @@ export const Favorites = () => {
 
   const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
   const { userData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
-  const {themeData, dynamicStyles } = useTheme();
+  const { themeData, dynamicStyles } = useTheme();
+
+  const [noFavorites, setNoFavorites] = useState<boolean>(false);
 
 
   const navigation = useNavigation();
@@ -61,8 +63,10 @@ export const Favorites = () => {
 
             });
             setDataArray(mappedData);
+            setNoFavorites(false);
           } else {
             console.warn("No se encontraron imágenes en la respuesta.");
+            setNoFavorites(true);
           }
 
         })
@@ -93,25 +97,15 @@ export const Favorites = () => {
 
         //contentContainerStyle={[dynamicStyles.dynamicMainContainer, /* stylesAppTheme.mainContainer, */]}
         //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, /* stylesAppTheme.viewContainer */]} // Estilo para englobar las columnas
-        /* ListHeaderComponent={() => (
-            <View>
-                {<TitleComponent title="Anime Directory" />}
-                <View style={[[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]]}>
-                    {showFilters ? <TouchableOpacity onPress={() => setShowFilters(!showFilters)}
-                        style={{ backgroundColor: "green", width: 200, alignItems: 'center', borderRadius: 10, paddingVertical: 10, marginTop: 10, marginLeft: 10, }}
-                    >
-                        <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Filtros</Text>
-                    </TouchableOpacity> : <TouchableOpacity onPress={() => setShowFilters(!showFilters)}
-                        style={{ backgroundColor: "red", width: 200, alignItems: 'center', borderRadius: 10, paddingVertical: 10, marginTop: 10, marginLeft: 10, }}
-                    >
-                        <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Filtros</Text>
-                    </TouchableOpacity>}
- 
-                    {showFilters ? <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Mostrando filtros Bv</Text> : null}
-                </View>
-            </View>
- 
-        )} */
+        ListHeaderComponent={() => (
+          <>
+            {noFavorites &&
+              <View style={{justifyContent:'center'}}>
+                <Text style={dynamicStyles.dynamicText}>No hay Wallpapers favoritos Bv</Text>
+              </View>}
+          </>
+
+        )}
         //ListFooterComponent={() => loading && <ActivityIndicator size="large" color="#0000ff" />
 
         //onEndReached={fetchAnimes} // Llama a fetchAnimes cuando el usuario alcanza el final de la lista

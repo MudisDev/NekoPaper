@@ -41,6 +41,8 @@ export const Home = () => {
     const [dataArray, setDataArray] = useState<NekoImageData[] | null>(null);
     const { themeData, dynamicStyles } = useTheme();
 
+    const [noImages, setNoImages] = useState(false);
+
 
     const navigation = useNavigation();
 
@@ -116,8 +118,10 @@ export const Home = () => {
                     }));
 
                     setDataArray(mappedData);
+                    setNoImages(false);
                 } else {
                     console.warn("No se encontraron imágenes en la respuesta.");
+                    setNoImages(true);
                 }
 
 
@@ -153,25 +157,13 @@ export const Home = () => {
 
                 //contentContainerStyle={[dynamicStyles.dynamicMainContainer, /* stylesAppTheme.mainContainer, */]}
                 //columnWrapperStyle={[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]} // Estilo para englobar las columnas
-                /* ListHeaderComponent={() => (
-                    <View>
-                        {<TitleComponent title="Anime Directory" />}
-                        <View style={[[dynamicStyles.dynamicViewContainer, stylesAppTheme.viewContainer]]}>
-                            {showFilters ? <TouchableOpacity onPress={() => setShowFilters(!showFilters)}
-                                style={{ backgroundColor: "green", width: 200, alignItems: 'center', borderRadius: 10, paddingVertical: 10, marginTop: 10, marginLeft: 10, }}
-                            >
-                                <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Filtros</Text>
-                            </TouchableOpacity> : <TouchableOpacity onPress={() => setShowFilters(!showFilters)}
-                                style={{ backgroundColor: "red", width: 200, alignItems: 'center', borderRadius: 10, paddingVertical: 10, marginTop: 10, marginLeft: 10, }}
-                            >
-                                <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Filtros</Text>
-                            </TouchableOpacity>}
+                 ListHeaderComponent={() => (
+                    
+                    <>
+                    {noImages && <Text style={dynamicStyles.dynamicText}>No hay Wallpapers en la BD Bv</Text>}
+                    </>
 
-                            {showFilters ? <Text style={[stylesAppTheme.textLabel, dynamicStyles.dynamicText]}>Mostrando filtros Bv</Text> : null}
-                        </View>
-                    </View>
-
-                )} */
+                )} 
                 //ListFooterComponent={() => loading && <ActivityIndicator size="large" color="#0000ff" />
 
                 //onEndReached={fetchAnimes} // Llama a fetchAnimes cuando el usuario alcanza el final de la lista

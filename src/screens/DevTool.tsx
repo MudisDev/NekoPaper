@@ -175,7 +175,7 @@ export const DevTool = () => {
 
 
   return (
-    <ScrollView contentContainerStyle={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle]} /* style={{marginTop:200}} */>
+    <ScrollView contentContainerStyle={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle]}  /* style={{marginTop:200}} */>
 
       <Text style={dynamicStyles.dynamicText}>DevTool Screen Bv</Text>
       <Text></Text>
