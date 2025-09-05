@@ -149,3 +149,6 @@ SELECT
     i.fecha_actualizacion
 FROM tiene_etiqueta te
 JOIN Vista_Imagenes_Sin_Negativas i ON te.id_imagen = i.id_imagen;
+
+
+SELECT * FROM usuario;
