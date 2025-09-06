@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, TextComponent } from 'react-native'
 import { stylesAppTheme } from '../theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../context/UserContext'
@@ -101,7 +101,10 @@ export const Settings = () => {
       {(userData?.idUser == 1) ?
         <ButtonComponent title='DevTool Bv' funcion={() => navigation.navigate("DevTool")} active={true} />
         :
-        <ButtonComponent title='DevTool Bv' funcion={() => navigation.navigate("DevTool")} active={false} />
+        <>
+          <ButtonComponent title='DevTool Bv' funcion={() => navigation.navigate("DevTool")} active={false} />
+          <Text style={dynamicStyles.dynamicText}>(Solo pa desarrolladores Bv)</Text>
+        </>
       }
 
 

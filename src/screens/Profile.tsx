@@ -13,7 +13,7 @@ export const Profile = () => {
   const { userData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
 
 
-  const noFunction = () => {}
+  const noFunction = () => { }
 
   return (
     // <View style={[stylesAppTheme.container, dynamicStyles.dynamicScrollViewStyle]}>
@@ -32,17 +32,17 @@ export const Profile = () => {
       </View>
       <Text></Text>
 
-      <View style={[dynamicStyles.dynamicViewContainer, styles.labelContainer]}>
+      {/* <View style={[dynamicStyles.dynamicViewContainer, styles.labelContainer]}>
         <Text style={dynamicStyles.dynamicText}>Telefono: {userData?.phoneNumber}</Text>
-      </View>
-      <Text></Text>
+      </View> 
+      <Text></Text>*/}
 
       <View style={[dynamicStyles.dynamicViewContainer, styles.labelContainer]}>
         <Text style={dynamicStyles.dynamicText}>Genero: {userData?.gender}</Text>
       </View>
       <Text></Text>
 
-{/*       <ButtonComponent title='Editar perfil' funcion={noFunction} active={false}/>
+      {/*       <ButtonComponent title='Editar perfil' funcion={noFunction} active={false}/>
       <Text></Text>
       <ButtonComponent title='Cambiar username' funcion={noFunction} active={false}/>
       <Text></Text>
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   labelContainer: {
     width: 250,
     height: 40,
-    borderRadius:15,
-    paddingLeft:10,
+    borderRadius: 15,
+    paddingLeft: 10,
     justifyContent: 'center',
   }
 });

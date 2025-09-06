@@ -28,7 +28,7 @@ CREATE TABLE Etiqueta (
     api_origen VARCHAR(20) NOT NULL
 );
 
-ALTER TABLE etiqueta ADD COLUMN lista_negra int DEFAULT NULL;
+ALTER TABLE Etiqueta ADD COLUMN lista_negra int DEFAULT NULL;
 
 CREATE TABLE Imagen (
     id_imagen INT AUTO_INCREMENT PRIMARY KEY,
@@ -87,8 +87,8 @@ DELETE FROM favorito;
 
 CREATE VIEW Vista_Tiene_Etiqueta AS
 SELECT te.id_imagen, te.id_etiqueta, e.nombre AS nombre_etiqueta
-FROM tiene_etiqueta te
-    JOIN etiqueta e ON te.id_etiqueta = e.id_etiqueta;
+FROM Tiene_Etiqueta te
+    JOIN Etiqueta e ON te.id_etiqueta = e.id_etiqueta;
 
 CREATE VIEW Vista_Mostrar_Imagen_Por_Etiqueta AS
 SELECT
@@ -97,13 +97,13 @@ SELECT
     i.url,
     i.id_imagen AS id_imagen_real,
     i.clasificacion
-FROM tiene_etiqueta te
-    JOIN imagen i ON te.id_imagen = i.id_imagen;
+FROM Tiene_Etiqueta te
+    JOIN Imagen i ON te.id_imagen = i.id_imagen;
 
 CREATE VIEW Vista_Favorito AS
 SELECT f.id_favorito, f.id_usuario, f.id_imagen, f.fecha_favorito, i.url AS url, i.clasificacion
-FROM favorito f
-    JOIN imagen i ON f.id_imagen = i.id_imagen;
+FROM Favorito f
+    JOIN Imagen i ON f.id_imagen = i.id_imagen;
 
 SHOW TABLES;
 
@@ -125,12 +125,12 @@ SELECT * FROM etiqueta;
 CREATE VIEW Vista_Imagenes_Sin_Negativas AS
 SELECT
     i.*
-FROM imagen i
+FROM Imagen i
 WHERE i.clasificacion = 'safe'
 AND i.id_imagen NOT IN (
     SELECT te.id_imagen
-    FROM tiene_etiqueta te
-    JOIN etiqueta e ON te.id_etiqueta = e.id_etiqueta
+    FROM Tiene_Etiqueta te
+    JOIN Etiqueta e ON te.id_etiqueta = e.id_etiqueta
     WHERE e.lista_negra = 1
 );
 
@@ -147,7 +147,7 @@ SELECT
     i.url_fuente,
     i.fecha_insercion,
     i.fecha_actualizacion
-FROM tiene_etiqueta te
+FROM Tiene_Etiqueta te
 JOIN Vista_Imagenes_Sin_Negativas i ON te.id_imagen = i.id_imagen;
 
 
