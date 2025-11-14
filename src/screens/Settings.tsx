@@ -117,7 +117,13 @@ export const Settings = () => {
       </TouchableOpacity> */}
       <Text></Text>
 
-      <ButtonComponent title='eliminar cuenta' funcion={DeleteProfile} active={true} />
+      {(userData?.idUser == 1) ?
+        <ButtonComponent title='eliminar cuenta' funcion={DeleteProfile} active={false} />
+        :
+        <>
+          <ButtonComponent title='eliminar cuenta' funcion={DeleteProfile} active={true} />
+        </>
+      }
 
       <Text></Text>
       <Text></Text>
