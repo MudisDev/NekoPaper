@@ -10,6 +10,7 @@ import { ButtonComponent } from '../components/ButtonComponent'
 import { TextLinkComponent } from '../components/TextLinkComponent'
 import { ThemeContext } from '../context/ThemeContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ShowAlert } from '../utils/ShowAlert'
 
 export const LogIn = () => {
 
@@ -24,25 +25,25 @@ export const LogIn = () => {
     const context = useContext(ThemeContext); // Obtiene el contexto
     //const themeData = context?.themeData; // Obtiene themeData del contexto
     const setThemeData = context?.setThemeData;
-   
+
     if (!themeData) {
         return null; // Puedes manejar la carga o estado por defecto aquí
-      }
-      // Genera los estilos dinámicos pasando themeData
-      //const dynamicStyles = dynamicStylesAppTheme(themeData);
-    
-      useEffect(() => {
+    }
+    // Genera los estilos dinámicos pasando themeData
+    //const dynamicStyles = dynamicStylesAppTheme(themeData);
+
+    useEffect(() => {
         // Carga el tema al iniciar la app
         const loadStoredTheme = async () => {
-          const storedTheme = await AsyncStorage.getItem("themeColors");
-          if (storedTheme) {
-            //setTheme(JSON.parse(storedTheme));
-            setThemeData(JSON.parse(storedTheme));
-            console.log("Theme loaded!");
-          }
+            const storedTheme = await AsyncStorage.getItem("themeColors");
+            if (storedTheme) {
+                //setTheme(JSON.parse(storedTheme));
+                setThemeData(JSON.parse(storedTheme));
+                console.log("Theme loaded!");
+            }
         };
         loadStoredTheme();
-      }, []);
+    }, []);
 
     const IniciarSesion = async () => {
         try {
@@ -83,6 +84,9 @@ export const LogIn = () => {
 
                 navigation.navigate("BottomTabNavigator");
             }
+            else
+                ShowAlert({ title: 'Error al iniciar sesion', text: `Credenciales invalidas.`, buttonOk: 'Ok', onConfirm: () => void {} })
+
 
 
         } catch (e) {

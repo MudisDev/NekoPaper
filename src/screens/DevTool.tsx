@@ -4,6 +4,7 @@ import { stylesAppTheme } from '../theme/AppTheme'
 import { NekoImageData } from './Home'
 import { associate_tags, register_image, register_tag } from '../const/UrlConfig'
 import { useTheme } from '../hooks/UseTheme'
+import { ShowAlert } from '../utils/ShowAlert'
 
 export const DevTool = () => {
 
@@ -121,6 +122,7 @@ export const DevTool = () => {
     source_url: string,
     tags: string[],
   }[]) => {
+    let i = 0;
     const api_origen = "NekosApi";
 
     for (const img of imagenes) {
@@ -142,6 +144,7 @@ export const DevTool = () => {
           console.log(`Error al insertar la imagen "${img.id}"`);
         } else {
           console.log(`Imagen "${img.id}" insertada correctamente`);
+          i++;
           // ✅ Asociar etiquetas con imagen
           await AsociarImagenConEtiquetas(img.id, img.tags);
         }
@@ -150,6 +153,15 @@ export const DevTool = () => {
         console.error(`Error con la imagen "${img.id}": ${e}`);
       }
     }
+
+    if(i > 0){
+      ShowAlert({title: 'Consumo de API exitoso', text: `Se han registrado ${i} imagenes en la BD.`, buttonOk: 'Ok', onConfirm: () => void {}})
+    } 
+    else{
+      ShowAlert({title: 'Error en consumo de API', text: `No se insertaron imagenes en la BD.`, buttonOk: 'Ok', onConfirm: () => void {}})
+
+    }
+
   };
 
   const AsociarImagenConEtiquetas = async (idImagen: string, etiquetas: string[]) => {

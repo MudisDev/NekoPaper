@@ -8,6 +8,7 @@ import { TextLinkComponent } from '../components/TextLinkComponent'
 import { TextInputComponent } from '../components/TextInputComponent'
 import { RegexFormValidator } from '../utils/RegexFormValidator'
 import { ButtonComponent } from '../components/ButtonComponent'
+import { ShowAlert } from '../utils/ShowAlert'
 
 
 export const Register = () => {
@@ -52,9 +53,13 @@ export const Register = () => {
       if (data.Error) {
         console.log("respuesta -> ", respuesta);
         console.log("Error de registro Bv");
+        ShowAlert({ title: 'Error al registrar', text: `La cuenta no pudo ser creada.`, buttonOk: 'Ok', onConfirm: () => void {} })
+
       }
       else if (data.Success) {
         console.log("Registro exitoso");
+        ShowAlert({ title: 'Registro exitoso', text: `La cuenta fue creada exitosamente.`, buttonOk: 'Ok', onConfirm: () => void {} })
+
       }
       const user = data[0];
       console.log(`user -> ${user}`);

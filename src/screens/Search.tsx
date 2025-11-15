@@ -8,6 +8,7 @@ import { show_images_for_tag, show_tags } from '../const/UrlConfig';
 import { dynamicStylesAppTheme } from '../theme/DynamicAppTheme';
 import { useTheme } from '../hooks/UseTheme';
 import { ButtonComponent } from '../components/ButtonComponent';
+import { ShowAlert } from '../utils/ShowAlert';
 
 interface TagsData {
   id_tag: number;
@@ -114,7 +115,9 @@ export const Search = () => {
           });
           setImageArray(mappedData);
         } else {
-          console.warn("No se encontraron imágenes en la respuesta.");
+          //console.warn("No se encontraron imágenes en la respuesta.");
+          ShowAlert({ title: 'Busqueda sin resultados', text: `No se encontraron imagenes con esa etiqueta.`, buttonOk: 'Ok', onConfirm: () => void {} })
+
         }
 
       })
@@ -155,7 +158,7 @@ export const Search = () => {
           <View style={[stylesAppTheme.container, /* {backgroundColor: "red"} */]}>
             <View style={{ /* padding: 10 */ }}>
 
-             
+
 
 
               <View style={[styles.tagContainer, /* dynamicStyles.dynamicMainContainer */]}>

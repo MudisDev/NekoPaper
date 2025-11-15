@@ -11,6 +11,7 @@ import { ColorPaletteTheme } from '../theme/ColorPaletteTheme'
 import RNPickerSelect from 'react-native-picker-select';
 import { ButtonComponent } from '../components/ButtonComponent'
 import { delete_profile } from '../const/UrlConfig'
+import { ShowAlert } from '../utils/ShowAlert'
 
 export const Settings = () => {
   const navigation = useNavigation();
@@ -110,7 +111,10 @@ export const Settings = () => {
 
 
       <Text></Text>
-      <ButtonComponent title='Cerrar sesion' funcion={() => { setUserData(null); navigation.navigate('LogIn'); }} active={true} />
+      <ButtonComponent title='Cerrar sesion' funcion={() => ShowAlert({
+        title: "Cerrar sesion", text: "¿Seguro deseas cerrar sesion?",
+        buttonCancel: "Cancelar", buttonOk: "Ok", onCancel: () => void {}, onConfirm: () => { setUserData(null); navigation.navigate('LogIn'); }
+      })} active={true} />
 
       {/* <TouchableOpacity style={[stylesAppTheme.button, dynamicStyles.dynamicViewContainer]} onPress={() => { setUserData(null); navigation.navigate('LogIn'); }}>
         <Text style={[stylesAppTheme.textButton, dynamicStyles.dynamicText]}>Cerrar Sesion</Text>
@@ -121,7 +125,10 @@ export const Settings = () => {
         <ButtonComponent title='eliminar cuenta' funcion={DeleteProfile} active={false} />
         :
         <>
-          <ButtonComponent title='eliminar cuenta' funcion={DeleteProfile} active={true} />
+          <ButtonComponent title='eliminar cuenta' funcion={() => ShowAlert({
+            title: "Borrar cuenta", text: "¿Seguro deseas borrar tu cuenta?",
+            buttonCancel: "Cancelar", buttonOk: "Ok", onCancel: () => void {}, onConfirm: DeleteProfile
+          })} active={true} />
         </>
       }
 
