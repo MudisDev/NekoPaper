@@ -14,7 +14,7 @@ class Lista
     {
         $condiciones = "clasificacion = 'safe'";
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Imagen", ["*"], $condiciones);
+        $resultado = $conexion->SetSelect("imagen", ["*"], $condiciones);
         //$resultado = $conexion->SetSelect("Vista_Imagenes_Sin_Negativas", ["*"], $condiciones);
         //$resultado = $conexion->SetSelect("Vista_Imagenes_Sin_Negativas", ["*"]);
         $this->Set_Lista($resultado);
@@ -24,7 +24,7 @@ class Lista
     {
         $condicion = "id_usuario = '$id_usuario' AND clasificacion = 'safe'";
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Vista_Favorito", ["*"], $condicion);
+        $resultado = $conexion->SetSelect("vista_favorito", ["*"], $condicion);
         $this->Set_Lista($resultado);
     }
 
@@ -32,7 +32,7 @@ class Lista
     {
         $condicion = "id_etiqueta = '$id_etiqueta' AND clasificacion = 'safe'";
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Vista_Mostrar_Imagen_Por_Etiqueta", ["*"], $condicion);
+        $resultado = $conexion->SetSelect("vista_mostrar_imagen_por_etiqueta", ["*"], $condicion);
         //$resultado = $conexion->SetSelect("Vista_Mostrar_Imagen_Por_Etiqueta_Segura", ["*"], $condicion);
         //$resultado = $conexion->SetSelect("Vista_Mostrar_Imagen_Por_Etiqueta_Segura", ["*"]);
         $this->Set_Lista($resultado);
@@ -42,7 +42,7 @@ class Lista
     {
         $condiciones = "lista_negra = 0";
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Etiqueta", ["*"], $condiciones);
+        $resultado = $conexion->SetSelect("etiqueta", ["*"], $condiciones);
         $this->Set_Lista($resultado);
     }
 

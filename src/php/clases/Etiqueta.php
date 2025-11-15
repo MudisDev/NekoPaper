@@ -25,7 +25,7 @@ class Etiqueta
     public function Registrar_Etiqueta()
     {
         $conexion = new Conexion();
-        $resultado = $conexion->SetInsert("Etiqueta", $this->array_insert, [
+        $resultado = $conexion->SetInsert("etiqueta", $this->array_insert, [
             $this->nombre,
             $this->api_origen
         ]);
@@ -36,7 +36,7 @@ class Etiqueta
     {
         // Escapamos los valores para seguridad
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Etiqueta", ["*"], "nombre = '$this->nombre' AND api_origen = '$this->api_origen'");
+        $resultado = $conexion->SetSelect("etiqueta", ["*"], "nombre = '$this->nombre' AND api_origen = '$this->api_origen'");
         return $resultado;
     }
 }

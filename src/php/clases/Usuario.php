@@ -49,7 +49,7 @@ class Usuario
 
         $conexion = new Conexion();
         $resultado = $conexion->SetInsert(
-            "Usuario",
+            "usuario",
             $this->array_insert,
             [
                 $this->nombre,
@@ -69,7 +69,7 @@ class Usuario
         $condiciones = "username = '$this->username'";
         $conexion = new Conexion();
         //$resultado = $conexion->IniciarSesion("Usuario", ["*"], "username", $this->username, $this->password);
-        $resultado = $conexion->SetSelect("Usuario", ["*"], $condiciones, true, $this->password);
+        $resultado = $conexion->SetSelect("usuario", ["*"], $condiciones, true, $this->password);
         if (!isset($resultado['Error'])) {
             $this->Set_Datos($resultado[0]);
         }
@@ -88,7 +88,7 @@ class Usuario
     public function Marcar_Favorito($id_imagen)
     {
         $conexion = new Conexion();
-        $resultado = $conexion->SetInsert("Favorito", ["id_usuario", "id_imagen"], [$this->id_usuario, $id_imagen]);
+        $resultado = $conexion->SetInsert("favorito", ["id_usuario", "id_imagen"], [$this->id_usuario, $id_imagen]);
         return $resultado;
     }
 
@@ -96,7 +96,7 @@ class Usuario
     {
         // Escapamos los valores para seguridad
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Favorito", ["*"], "id_usuario = '$this->id_usuario' AND id_imagen = '$id_imagen'");
+        $resultado = $conexion->SetSelect("favorito", ["*"], "id_usuario = '$this->id_usuario' AND id_imagen = '$id_imagen'");
 
         return $resultado;
     }
@@ -105,7 +105,7 @@ class Usuario
     {
         $condiciones = "id_usuario = '$this->id_usuario' AND id_imagen = '$id_imagen' ";
         $conexion = new Conexion();
-        $resultado = $conexion->SetDelete("Favorito", $condiciones);
+        $resultado = $conexion->SetDelete("favorito", $condiciones);
         return $resultado;
     }
 
@@ -113,7 +113,7 @@ class Usuario
     {
         $condiciones = "username = '$this->username'";
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Usuario", ["*"], $condiciones);
+        $resultado = $conexion->SetSelect("usuario", ["*"], $condiciones);
         $conexion->cerrarConexion();
 
         return $resultado;
@@ -122,7 +122,7 @@ class Usuario
     {
         $condiciones = "email = '$this->email'";
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Usuario", ["*"], $condiciones);
+        $resultado = $conexion->SetSelect("usuario", ["*"], $condiciones);
         $conexion->cerrarConexion();
 
         return $resultado;
@@ -131,7 +131,7 @@ class Usuario
     {
         $condiciones = "telefono = '$this->telefono'";
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Usuario", ["*"], $condiciones);
+        $resultado = $conexion->SetSelect("usuario", ["*"], $condiciones);
         $conexion->cerrarConexion();
 
         return $resultado;
@@ -141,7 +141,7 @@ class Usuario
     {
         $condiciones = "id_usuario = '$this->id_usuario'";
         $conexion = new Conexion();
-        $resultado = $conexion->SetDelete("Usuario", $condiciones);
+        $resultado = $conexion->SetDelete("usuario", $condiciones);
         return $resultado;
     }
 }

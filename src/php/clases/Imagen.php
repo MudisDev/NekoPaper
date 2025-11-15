@@ -37,7 +37,7 @@ class Imagen
     {
         $conexion = new Conexion();
         $resultado = $conexion->SetInsert(
-            "Imagen",
+            "imagen",
             $this->array_insert,
             [
                 $this->url,
@@ -57,7 +57,7 @@ class Imagen
     {
         // Escapamos los valores para seguridad
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Imagen", ["*"], "id_imagen_api = '$this->id_imagen_api' AND api_origen = '$this->api_origen'");
+        $resultado = $conexion->SetSelect("imagen", ["*"], "id_imagen_api = '$this->id_imagen_api' AND api_origen = '$this->api_origen'");
 
         return $resultado;
     }
@@ -65,7 +65,7 @@ class Imagen
     public function Consultar_Etiquetas()
     {
         $conexion = new Conexion();
-        $resultado = $conexion->SetSelect("Vista_Tiene_Etiqueta", ["id_etiqueta", "nombre_etiqueta"], "id_imagen = '$this->id_imagen'");
+        $resultado = $conexion->SetSelect("vista_tiene_etiqueta", ["id_etiqueta", "nombre_etiqueta"], "id_imagen = '$this->id_imagen'");
         return $resultado;
     }
 

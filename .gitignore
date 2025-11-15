@@ -37,3 +37,6 @@ src/php/config/
 
 # typescript
 *.tsbuildinfo
+
+# directorio de vscode
+.vscode/
