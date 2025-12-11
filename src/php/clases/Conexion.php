@@ -49,6 +49,8 @@ class Conexion
             $this->sql .= " WHERE $condiciones";
         }
 
+
+
         $coincidenciaBusqueda = false;
 
         $resultados = [];
@@ -58,7 +60,8 @@ class Conexion
             while ($fila = $resultado->fetch_assoc()) {
 
                 if ($is_login) {
-                    if ($password == $fila['password']) {
+                    //if ($password == $fila['password']) {
+                    if (password_verify($password, $fila['password'])) {
                         $coincidenciaBusqueda = true;
                         $resultados[] = $fila; // Cada fila es un diccionario (asociativo)
                         break;
@@ -72,11 +75,17 @@ class Conexion
             }
         }
 
-        if ($coincidenciaBusqueda == false) {
-            return ["Error" => "No hubo coincidencias"];
-        } else {
-            return $resultados;
+        // Si es login y no hubo coincidencia
+        if ($is_login && empty($resultados)) {
+            return ["Error" => "Contraseña incorrecta o usuario no encontrado"];
         }
+
+        // Si es consulta normal y no hay resultados
+        if (!$is_login && empty($resultados)) {
+            return ["Error" => "No hubo coincidencias"];
+        }
+
+        return $resultados;
     }
 
     /* public function IniciarSesion(string $tabla, array $columnas = ['*'], $columna_usuario, $username, $password)
@@ -120,8 +129,13 @@ class Conexion
         }
     }
 
-    public function SetInsert(string $tabla, array $columnas, array $datos)
+    public function SetInsert(string $tabla, array $columnas, array $datos, bool $is_register = false)
     {
+
+        if ($is_register) {
+            $hashed_password = password_hash($datos[3], PASSWORD_DEFAULT);
+            $datos[3] = $hashed_password;
+        }
         //echo "Entro a set insert en conexion";
 
         $valores = [];
@@ -158,7 +172,11 @@ class Conexion
         $resultado = $this->conn->query($this->sql);
         if ($resultado) {
             if ($this->conn->affected_rows > 0) {
-                return ["Success" => "Registro exitoso en tabla $tabla."];
+
+                // Obtener el ID generado
+                $lastId = $this->conn->insert_id;
+
+                return ["Success" => "Registro exitoso en tabla $tabla.", "id_generado" => $lastId];
             } else {
                 return ["Warning" => "La consulta se ejecutó, pero no se insertó ninguna fila en $tabla."];
             }
